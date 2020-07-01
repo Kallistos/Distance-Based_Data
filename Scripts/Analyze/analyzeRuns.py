@@ -338,7 +338,7 @@ def main() -> None:
                 if not os.path.exists(directory):
                     os.makedirs(directory)
                 error_rate_file = open(directory + os.path.sep + ALL_RESULTS_PREFIX + ERROR_PREFIX +
-                                       mode + file + OTHER_FILE_SUFFIX, 'w')
+                                       mode + file.replace('out_', '_') + OTHER_FILE_SUFFIX, 'w')
                 error_rate_file.write("Run;Error\n")
 
                 for run in run_statistic[mode][file].keys():
@@ -361,25 +361,26 @@ def main() -> None:
                     standard_deviation[mode][file] /= average_values[mode][file]
 
                 standard_deviation_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
-                                               STANDARD_DEVIATION_PREFIX + mode + OTHER_FILE_SUFFIX, 'w')
+                                               STANDARD_DEVIATION_PREFIX + mode + file.replace('out_', '_') +
+                                               OTHER_FILE_SUFFIX, 'w')
                 standard_deviation_file.write(str(standard_deviation[mode][file]) + "\n")
                 standard_deviation_file.close()
 
-                # TODO: Write optimal parameters in a csv file
+                # Write optimal parameters in a csv file
                 optimal_parameter_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
-                                             OPTIMAL_PARAMETERS_PREFIX + mode + file + OTHER_FILE_SUFFIX, 'w')
+                                             OPTIMAL_PARAMETERS_PREFIX + mode + file.replace('out_', '_') +
+                                              OTHER_FILE_SUFFIX, 'w')
                 for run in optimal_parameters[mode][file].keys():
                     optimal_parameter_file.write(optimal_parameters[mode][file][run] + "\n")
                 optimal_parameter_file.close()
 
-        for case_study in performance_statistic.keys():
-            for file in performance_statistic[case_study].keys():
-                # Write performance data into a csv file
-                performance_data_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
-                                             PERFORMANCE_PREFIX + mode + file + OTHER_FILE_SUFFIX, 'w')
-                for performance_information in performance_statistic[case_study][file]:
-                    performance_data_file.write(str(performance_information) + "\n")
-                performance_data_file.close()
+        for file in performance_statistic[case_study].keys():
+            # Write performance data into a csv file
+            performance_data_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
+                                         PERFORMANCE_PREFIX + mode + file.replace('out_', '_') + OTHER_FILE_SUFFIX, 'w')
+            for performance_information in performance_statistic[case_study][file]:
+                performance_data_file.write(str(performance_information) + "\n")
+            performance_data_file.close()
 
 
 if "__main__" == __name__:
