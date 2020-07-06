@@ -13,8 +13,5 @@ Optimal parameters tol=0.1;shrinking=False;gamma=auto;epsilon=0.3;coef0=0;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Polly/Polly_11/PreVal_SVR_FeatureModel__.csv
 Error rate: 0.196026801111905
-command: analyze-learning
-Round, Model, LearningError, LearningErrorRel, ValidationError, ValidationErrorRel, ElapsedSeconds, ModelComplexity, BestCandidate, BestCandidateSize, BestCandidateScore, TestError
-Models:
 command: clean-sampling
 command: clean-global

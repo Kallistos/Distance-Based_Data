@@ -13,8 +13,6 @@ CSV_SUFIX=".csv"
 TXT_SUFIX=".txt"
 LOG_SUFIX=".log"
 
-SUPER_SCRIPT_NAME="learnAll.a"
-
 createAFiles () {
         path=$1
         tmp=$2
@@ -28,7 +26,7 @@ createAFiles () {
         > $scriptFile;
         for twCounter in $TW_COUNTER
         do
-          file="${tmp}learn_${FILE_NAME}_t$((${twCounter})).a";
+          file="${tmp}learn_${FILE_NAME}_t$((${twCounter}))${ML_TYPE}.a";
           # VP9 has a csv file
           if [[ $caseStudyPath == *"VP9"* ]]; then
             csvFile="${path}measurements.csv";
@@ -39,7 +37,7 @@ createAFiles () {
           sampleFile="${tmp}${SAMPLED_CONFIGURATION_FILE_PREFIX}${FILE_NAME}_t$((${twCounter})).csv";
 
           # Write in the super-script
-          echo "script ./learn_${FILE_NAME}_t$((${twCounter})).a" >> $scriptFile;
+          echo "script ./learn_${FILE_NAME}_t$((${twCounter}))${ML_TYPE}.a" >> $scriptFile;
 
           echo "clean-global" >> $scriptFile;
 
@@ -58,14 +56,25 @@ createAFiles () {
 
           # Write in a-file
           > ${file};
-          echo "log ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))Predictions${LOG_SUFIX}" >> ${file};
-          echo "solver z3" >> ${file}
-          echo "vm ${path}FeatureModel.xml" >> ${file};
-          echo "all ${csvFile}" >> ${file};
-          echo "nfp Performance" >> ${file};
-          echo "setsampleset ${sampleFile}" >> ${file};
-          echo "learn-splconqueror-opt abortError=[1] minImprovementPerRound=[0.1,0.2,0.5] lossFunction=[RELATIVE] quadraticFunctionSupport=[True,False] learn_logFunction=[True,False] learn_asymFunction=[True,False] learn_ratioFunction=[True,False] withHierarchy=[False] useBackward=[False]" >> ${file};
-          echo "clean-sampling" >> ${file};
+          echo "log ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))Predictions${ML_TYPE}${LOG_SUFIX}" >> ${file};
+          if [ ${twCounter} = "1" ]; then
+            echo "solver z3" >> ${file}
+            echo "vm ${path}FeatureModel.xml" >> ${file};
+            echo "all ${csvFile}" >> ${file};
+            echo "nfp Performance" >> ${file};
+            echo "setsampleset ${sampleFile}" >> ${file};
+          fi
+          if [ ${ML_TYPE} = "MLR" ]; then
+            echo "learn-splconqueror-opt abortError=[1] minImprovementPerRound=[0.1,0.2,0.5] lossFunction=[RELATIVE] quadraticFunctionSupport=[True,False] learn_logFunction=[True,False] learn_asymFunction=[True,False] learn_ratioFunction=[True,False] withHierarchy=[False] useBackward=[False]" >> ${file};
+          fi
+          if [ ${ML_TYPE} = "SVR" ]; then
+	    echo "define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin" >> ${file};
+            echo "learn-python-opt SVR" >> ${file};
+          fi
+          if [ ${ML_TYPE} = "FR" ]; then
+	    echo "define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin" >> ${file};
+            echo "learn-python-opt RandomForestRegressor" >> ${file};
+          fi
 
         done
 }
@@ -78,7 +87,10 @@ fi
 CASE_STUDY=$1;
 MULTIPLICATION_FACTOR=$2;
 TYPE=$3;
+ML_TYPE=$4
 CURRENT_SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+SUPER_SCRIPT_NAME="learnAll${CASE_STUDY}.a"
 
 if [ "${TYPE}" = "twise" ]; then
   SAMPLING_STRATEGY="binary twise";
@@ -114,16 +126,16 @@ else
   exit;
 fi
 
-if [ $# -eq 5 ]; then
-      BEGIN_AT=$4;
-      REPETITIONS=$5;
+if [ $# -eq 6 ]; then
+      BEGIN_AT=$5;
+      REPETITIONS=$6;
 fi
 
 # Mono variables
 MONO_PATH="mono"
 
 # SPL Conqueror variables
-SPL_CONQUEROR_PATH="/scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Debug/CommandLine.exe"
+SPL_CONQUEROR_PATH="/scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe"
 
 TMP_PATH="/scratch/kallistos/Distance-Based_Data/Results/${CASE_STUDY}/"
 

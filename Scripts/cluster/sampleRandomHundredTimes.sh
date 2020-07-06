@@ -60,8 +60,10 @@ createAFiles () {
           > ${file};
           echo "log ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))${LOG_SUFIX}" >> ${file};
           echo "solver z3" >> ${file}
-          echo "vm ${path}FeatureModel.xml" >> ${file};
-          echo "all ${csvFile}" >> ${file};
+          if [ ${twCounter} = "1" ]; then
+            echo "vm ${path}FeatureModel.xml" >> ${file};
+            echo "all ${csvFile}" >> ${file};
+          fi
           if [ "${SAMPLING_STRATEGY}" = "select-all-measurements true" ]; then
             echo "${SAMPLING_STRATEGY}" >> ${file};
           elif [ "${SAMPLING_STRATEGY}" = "binary twise" ]; then
@@ -128,7 +130,7 @@ FILE_NAME += "Samples"
 MONO_PATH="mono"
 
 # SPL Conqueror variables
-SPL_CONQUEROR_PATH="/scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Debug/CommandLine.exe"
+SPL_CONQUEROR_PATH="/scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe"
 
 TMP_PATH="/scratch/kallistos/Distance-Based_Data/Results/${CASE_STUDY}/"
 

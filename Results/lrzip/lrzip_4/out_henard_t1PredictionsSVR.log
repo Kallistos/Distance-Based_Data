@@ -14,9 +14,6 @@ Optimal parameters tol=0.5;shrinking=False;gamma=auto;epsilon=0.1;coef0=2;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/lrzip/lrzip_4/PreVal_SVR_lrzip__.csv
 Error rate: 1.39282592983232
-command: analyze-learning
-Round, Model, LearningError, LearningErrorRel, ValidationError, ValidationErrorRel, ElapsedSeconds, ModelComplexity, BestCandidate, BestCandidateSize, BestCandidateScore, TestError
-Models:
 command: clean-sampling
 command: clean-global
 command: script ./learn_henard_t2SVR.a

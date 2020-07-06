@@ -123,7 +123,7 @@ fi
 MONO_PATH="mono"
 
 # SPL Conqueror variables
-SPL_CONQUEROR_PATH="/scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Debug/CommandLine.exe"
+SPL_CONQUEROR_PATH="/scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe"
 
 TMP_PATH="/scratch/kallistos/Distance-Based_Data/Results/${CASE_STUDY}/"
 

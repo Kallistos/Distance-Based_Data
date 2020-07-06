@@ -14,10 +14,10 @@ CASE_STUDIES = [("BerkeleyDBC", 1000),
                 ("x264", 1000),
                 ("Dune", 1),
                 ("7z", 1),
-                ("Hipacc", 1000),
                 ("Polly", 1000),
                 ("JavaGC", 1000),
-                ("VP9", 1000)
+                ("VP9", 1000),
+                ("Hipacc", 1000)
                 ]
 
 JOB_ID = int(time.time() * 1000)
@@ -129,19 +129,19 @@ def main():
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
-                jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + str(run) + " " + str(run)
+                jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "MLR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif predictingSVR:
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
-                jobString += JOB_SCRIPT_PREDICTIONS_SVR + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + str(run) + " " + str(run)
+                jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "SVR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif predictingFR:
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
-                jobString += JOB_SCRIPT_PREDICTIONS_FOREST_REGRESSOR + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + str(run) + " " + str(run)
+                jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "FR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     else:
         raise KeyError("The operation " + sys.argv[3] + " is not allowed!")

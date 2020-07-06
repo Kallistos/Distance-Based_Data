@@ -13,8 +13,5 @@ Optimal parameters tol=0.2;shrinking=True;gamma=auto;epsilon=0.1;coef0=0;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/JavaGC/JavaGC_35/PreVal_SVR_FeatureModel__.csv
 Error rate: 0.333621109897876
-command: analyze-learning
-Round, Model, LearningError, LearningErrorRel, ValidationError, ValidationErrorRel, ElapsedSeconds, ModelComplexity, BestCandidate, BestCandidateSize, BestCandidateScore, TestError
-Models:
 command: clean-sampling
 command: clean-global

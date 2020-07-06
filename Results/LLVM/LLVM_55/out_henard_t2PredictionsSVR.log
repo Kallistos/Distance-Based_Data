@@ -10,13 +10,10 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt SVR
 Learning: NumberOfConfigurationsLearning:56 NumberOfConfigurationsValidation:56
 Starting Prediction
-Optimal parameters tol=0.2;shrinking=False;gamma=auto;epsilon=0.1;coef0=2;C=5;
+Optimal parameters tol=0.5;shrinking=False;gamma=auto;epsilon=0.3;coef0=0;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/LLVM/LLVM_55/PreVal_SVR_LLVM_OPT__.csv
-Error rate: 0.0524151188906563
-command: analyze-learning
-Round, Model, LearningError, LearningErrorRel, ValidationError, ValidationErrorRel, ElapsedSeconds, ModelComplexity, BestCandidate, BestCandidateSize, BestCandidateScore, TestError
-Models:
+Error rate: 0.052257771070536
 command: clean-sampling
 command: clean-global
 command: script ./learn_henard_t3SVR.a
