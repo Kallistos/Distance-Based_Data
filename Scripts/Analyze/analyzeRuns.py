@@ -9,7 +9,7 @@ import re
 # TYPES = ["distBased_", "divDistBased_", "solvBased_", "rand", "henard", "grammar-based_"]
 from typing import Dict, List, Any, Tuple
 
-TYPES = ["grammarBased_", "rand", "henard"]
+TYPES = ["grammarBased", "random", "henard", "divDistBased", "twise", "solverBased"]
 CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "JavaGC", "LLVM", "lrzip", "Polly", "VP9", "x264"]
 # CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "LLVM", "lrzip", "Polly"]
 # CASE_STUDIES = ["lrzip"]
@@ -19,6 +19,8 @@ SPL_CONQUEROR_PREFIX = "out_"
 ALL_RESULTS_PREFIX = "all_"
 ERROR_PREFIX = "error_"
 STANDARD_DEVIATION_PREFIX = "sd_"
+PERFORMANCE_PREFIX = "perf_"
+OPTIMAL_PARAMETERS_PREFIX = "par_"
 T_TEST_PREFIX = "ttest_"
 KOLMOGOROV_SMIRNOV_PREFIX = "kstest_"
 WHOLE_POPULATION = "wp"
@@ -49,7 +51,7 @@ def list_directories(path: str) -> List[str]:
     :return: the subdirectories as list.
     """
     for root, dirs, files in os.walk(path):
-        return dirs
+        return sorted(dirs)
 
 
 def get_specific_files_from_directory(path: str, prefixes: str, suffix: str, contains: List[str] = None,
@@ -259,18 +261,18 @@ def main() -> None:
     if not original_directory.endswith(SEPARATOR):
         original_directory = original_directory + SEPARATOR
 
-        # Precompute the prefixes of the files to analyze
+    # Precompute the prefixes of the files to analyze
     prefixes = []
     for type in TYPES:
-        prefixes.append(SPL_CONQUEROR_PREFIX + type[:len(type) - 1])
+        prefixes.append(SPL_CONQUEROR_PREFIX + type[:len(type)])
     suffix = ".log"
 
     for case_study in CASE_STUDIES:
         print("Analyzing " + case_study + ".")
 
         run_statistic: Dict[str, Dict[str, Dict[int, float]]] = {}
-        performance_statistic: Dict[str, Dict[int, int]] = {}
-        optimal_parameters: Dict[str, Dict[int, str]] = {}
+        performance_statistic: Dict[str, Dict[str, List[int]]] = {}
+        optimal_parameters: Dict[str, Dict[str, Dict[int, str]]] = {}
 
         directories: List[str] = list_directories(run_directory + case_study + SEPARATOR)
         average_values: Dict[str, Dict[str, float]] = {}
@@ -300,88 +302,85 @@ def main() -> None:
                         performance_statistic[case_study] = {}
                     performance: int = analyze_sampling_log_file(
                         run_directory + case_study + SEPARATOR + directory + SEPARATOR + file)
-                    performance_statistic[case_study][file_name] = performance
+                    if file_name in performance_statistic[case_study].keys():
+                        performance_statistic[case_study][file_name].append(performance)
+                    else:
+                        performance_statistic[case_study][file_name] = [performance]
                 else:
                     # In this case, the file contains the learning results
                     if file_type not in average_values.keys():
                         average_values[file_type] = {}
                         run_statistic[file_type] = {}
+                        optimal_parameters[file_type] = {}
                     (optimal_parameter, error) = analyze_learning_log_file(
                         run_directory + case_study + SEPARATOR + directory + SEPARATOR + file)
                     add_to_sum_dict(average_values[file_type], file_name, error)
                     add_to_dictionary(run_statistic[file_type], file_name, number_run, error)
-                    add_to_dictionary(optimal_parameters[file_type], file_name, number_run, optimal_parameters)
+
+                    if file_name not in optimal_parameters[file_type]:
+                        optimal_parameters[file_type][file_name] = {}
+                    optimal_parameters[file_type][file_name][number_run] = optimal_parameter
 
         for mode in average_values.keys():
             for directory in average_values[mode].keys():
                 average_values[mode][directory] = average_values[mode][directory] / len(run_statistic[mode][directory])
 
         # Retrieve the most average runs, print the error rates into a file
-        avg_runs = {}
-        best_runs = {}
-        worst_runs = {}
-        best_score = {}
-        worst_score = {}
         standard_deviation = {}
-        for file in run_statistic.keys():
-            best_score[file] = 1000
-            worst_score[file] = 0
+        for mode in run_statistic.keys():
+            standard_deviation[mode] = {}
+            for file in run_statistic[mode].keys():
+                standard_deviation[mode][file] = 0
 
-            min_deviation = sys.float_info.max
+                # Save the error rates in the following file (needed for box-plots)
+                mid_file_name = file[len(SPL_CONQUEROR_PREFIX):len(file) - len(suffix)]
+                directory = original_directory + case_study
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
+                error_rate_file = open(directory + os.path.sep + ALL_RESULTS_PREFIX + ERROR_PREFIX +
+                                       mode + file.replace('out_', '_') + OTHER_FILE_SUFFIX, 'w')
+                error_rate_file.write("Run;Error\n")
 
-            standard_deviation[file] = 0
+                for run in run_statistic[mode][file].keys():
+                    error = run_statistic[mode][file][run]
 
-            # Save the error rates in the following file (needed for box-plots)
-            mid_file_name = file[len(SPL_CONQUEROR_PREFIX):len(file) - len(suffix)]
-            directory = original_directory + case_study
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            error_rate_file = open(directory + os.path.sep + ALL_RESULTS_PREFIX + ERROR_PREFIX + mid_file_name +
-                                   OTHER_FILE_SUFFIX, 'w')
-            error_rate_file.write("Run;Error\n")
+                    try:
+                        standard_deviation[mode][file] += (average_values[mode][file] - error) ** 2
+                    except Exception as b:
+                        print("Error of run " + str(run) + " too high ( in case study " + case_study + ").", b)
+                        continue
 
-            for run in run_statistic[file].keys():
-                error = run_statistic[file][run]
+                    error_rate_file.write(str(run) + ";" + str(error) + "\n")
 
-                # Ignore runs where the error rate is Inf (in C#)
-                if error >= 1.79769313486e+308:
-                    continue
+                error_rate_file.close()
 
-                if error < best_score[file]:
-                    best_score[file] = error
-                    best_runs[file] = run
-                if error > worst_score[file]:
-                    worst_score[file] = error
-                    worst_runs[file] = run
+                # Compute the relative standard deviation
+                standard_deviation[mode][file] /= len(run_statistic[mode][file].keys())
+                standard_deviation[mode][file] = math.sqrt(standard_deviation[mode][file])
+                if average_values[mode][file] != 0:
+                    standard_deviation[mode][file] /= average_values[mode][file]
 
-                try:
-                    standard_deviation[file] += (average_values[file] - error) ** 2
-                except Exception as b:
-                    print("Error of run " + str(run) + " too high ( in case study " + case_study + ").", b)
-                    continue
+                standard_deviation_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
+                                               STANDARD_DEVIATION_PREFIX + mode + file.replace('out_', '_') +
+                                               OTHER_FILE_SUFFIX, 'w')
+                standard_deviation_file.write(str(standard_deviation[mode][file]) + "\n")
+                standard_deviation_file.close()
 
-                error_rate_file.write(str(run) + ";" + str(error) + "\n")
+                # Write optimal parameters in a csv file
+                optimal_parameter_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
+                                             OPTIMAL_PARAMETERS_PREFIX + mode + file.replace('out_', '_') +
+                                              OTHER_FILE_SUFFIX, 'w')
+                for run in optimal_parameters[mode][file].keys():
+                    optimal_parameter_file.write(optimal_parameters[mode][file][run] + "\n")
+                optimal_parameter_file.close()
 
-                deviation = abs(average_values[file] - error)
-                if deviation < min_deviation:
-                    min_deviation = deviation
-                    avg_runs[file] = run
-
-            error_rate_file.close()
-
-            # Compute the relative standard deviation
-            standard_deviation[file] /= len(run_statistic[file].keys())
-            standard_deviation[file] = math.sqrt(standard_deviation[file])
-            standard_deviation[file] /= average_values[file]
-
-            standard_deviation_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX + STANDARD_DEVIATION_PREFIX +
-                                           mid_file_name + OTHER_FILE_SUFFIX, 'w')
-            standard_deviation_file.write(str(standard_deviation[file]) + "\n")
-            standard_deviation_file.close()
-
-            # TODO: Write performance data into a csv file
-
-            # TODO: Write optimal parameters in a csv file
+        for file in performance_statistic[case_study].keys():
+            # Write performance data into a csv file
+            performance_data_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
+                                         PERFORMANCE_PREFIX + file.replace('out_', '') + OTHER_FILE_SUFFIX, 'w')
+            for performance_information in performance_statistic[case_study][file]:
+                performance_data_file.write(str(performance_information) + "\n")
+            performance_data_file.close()
 
 
 if "__main__" == __name__:
