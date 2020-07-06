@@ -9,7 +9,7 @@ import re
 # TYPES = ["distBased_", "divDistBased_", "solvBased_", "rand", "henard", "grammar-based_"]
 from typing import Dict, List, Any, Tuple
 
-TYPES = ["grammarBased_", "rand", "henard"]
+TYPES = ["grammarBased", "random", "henard", "divDistBased", "twise", "solverBased"]
 CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "JavaGC", "LLVM", "lrzip", "Polly", "VP9", "x264"]
 # CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "LLVM", "lrzip", "Polly"]
 # CASE_STUDIES = ["lrzip"]
@@ -261,10 +261,10 @@ def main() -> None:
     if not original_directory.endswith(SEPARATOR):
         original_directory = original_directory + SEPARATOR
 
-        # Precompute the prefixes of the files to analyze
+    # Precompute the prefixes of the files to analyze
     prefixes = []
     for type in TYPES:
-        prefixes.append(SPL_CONQUEROR_PREFIX + type[:len(type) - 1])
+        prefixes.append(SPL_CONQUEROR_PREFIX + type[:len(type)])
     suffix = ".log"
 
     for case_study in CASE_STUDIES:
@@ -377,7 +377,7 @@ def main() -> None:
         for file in performance_statistic[case_study].keys():
             # Write performance data into a csv file
             performance_data_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
-                                         PERFORMANCE_PREFIX + mode + file.replace('out_', '_') + OTHER_FILE_SUFFIX, 'w')
+                                         PERFORMANCE_PREFIX + file.replace('out_', '') + OTHER_FILE_SUFFIX, 'w')
             for performance_information in performance_statistic[case_study][file]:
                 performance_data_file.write(str(performance_information) + "\n")
             performance_data_file.close()
