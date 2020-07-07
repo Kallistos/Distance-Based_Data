@@ -18,6 +18,8 @@ import subprocess
 # The constants
 SEPARATION_SIGN = ","
 ERROR_FILE_PREFIX = "all_error_"
+PERFORMANCE_FILE_PREFIX = "all_perf_"
+ML_PREFIXES = ["Predictions_", "PredictionsSVR_", "PredictionsForestRegressor_"]
 ERROR_FILE_SUFIX = ".txt"
 LOG_FILE_PREFIX = "out_"
 LOG_FILE_SUFIX = ".log"
@@ -33,9 +35,8 @@ BEST_FORMAT_SUFIX = "} "
 SECOND_FORMAT_PREFIX = "{\\color{Blue}\\underline{"
 SECOND_FORMAT_SUFIX = "}} "
 
-CASE_STUDY_MAPPING = {"7z": "7z", "BerkeleyDBC": "BDB-C", "Dune": "Dune",
-                      "Hipacc": "Hipacc", "JavaGC": "JavaGC", "Polly": "Polly",
-                      "VP9": "VP9"}
+CASE_STUDY_MAPPING = {"7z": "7z", "JavaGC": "JavaGC", "Polly": "Polly"}#, "BerkeleyDBC": "BDB-C", "Dune": "Dune",
+                      #"Hipacc": "Hipacc", "VP9": "VP9"}
 
 EXCLUDED_DIRECTORIES = ["SinglePlots"]  # , "VP9_disc", "JavaGC_disc", "Hipacc_disc", "Polly_disc"]
 FIRST_COLUMN_FORMAT = "e"
@@ -76,7 +77,8 @@ def retrieve_all_relevant_directories(input_dir: str) -> List[str]:
     :return: a list of strings, where each string represents the name of one subdirectory.
     """
     subfolders = [f.path for f in os.scandir(input_dir)
-                  if f.is_dir() and f.name not in EXCLUDED_DIRECTORIES and "_norm" not in f.name]
+                  if f.is_dir() and f.name not in EXCLUDED_DIRECTORIES and "_norm" not in f.name
+                  and f.name in CASE_STUDY_MAPPING.keys()]
     return subfolders
 
 
@@ -165,31 +167,25 @@ def gather_information(input_directories: List[str], types_to_add: List[str]) ->
         case_study = os.path.basename(inputDirectory)
         result[case_study] = {}
         all_results[case_study] = {}
-        for type in types_to_add:
-            # if type == "twise":
-            #     file_paths = [os.path.join(inputDirectory, LOG_FILE_PREFIX + type + "_t1" + LOG_FILE_SUFIX),
-            #                   os.path.join(inputDirectory, LOG_FILE_PREFIX + type + "_t2" + LOG_FILE_SUFIX),
-            #                   os.path.join(inputDirectory, LOG_FILE_PREFIX + type + "_t3" + LOG_FILE_SUFIX)]
-            #     result[case_study][type] = read_twise_log_file(file_paths)
-            #     all_results[case_study][type] = dict(result[case_study][type])
-            #     for t in T_PARAMETER:
-            #         all_results[case_study][type][t] = [all_results[case_study][type][t]] * 100
-            # else:
-            result[case_study][type] = {}
-            all_results[case_study][type] = {}
-            for t in T_PARAMETER:
-                # The t-wise error rate has to be read from the .log-file
-                file_path = os.path.join(inputDirectory,
-                                         ERROR_FILE_PREFIX + type + FILE_NAME_SEPARATOR + "t" + str(t) +
-                                         ERROR_FILE_SUFIX)
-                avg_value, all_values = compute_mean_error(file_path)
-                result[case_study][type][t] = avg_value
-                all_results[case_study][type][t] = all_values
+        for ml_algorithm in ML_PREFIXES:
+            result[case_study][ml_algorithm] = {}
+            all_results[case_study][ml_algorithm] = {}
+            for type_to_add in types_to_add:
+                result[case_study][ml_algorithm][type_to_add] = {}
+                all_results[case_study][ml_algorithm][type_to_add] = {}
+                for t in T_PARAMETER:
+                    # The t-wise error rate has to be read from the .log-file
+                    file_path = os.path.join(inputDirectory,
+                                             ERROR_FILE_PREFIX + ml_algorithm + type_to_add + FILE_NAME_SEPARATOR +
+                                             "t" + str(t) + ERROR_FILE_SUFIX)
+                    avg_value, all_values = compute_mean_error(file_path)
+                    result[case_study][ml_algorithm][type_to_add][t] = avg_value
+                    all_results[case_study][ml_algorithm][type_to_add][t] = all_values
     return result, all_results
 
 
-def create_ranking(type_information: Dict[str, Dict[str, Dict[str, float]]],
-                   all_information: Dict[str, Dict[str, Dict[str, float]]],
+def create_ranking(type_information: Dict[str, Dict[str, Dict[str, Dict[str, float]]]],
+                   all_information: Dict[str, Dict[str, Dict[str, Dict[str, float]]]],
                    types_to_add: List[str],
                    to_exclude=None) -> Dict[str, Any]:
     """
@@ -204,17 +200,19 @@ def create_ranking(type_information: Dict[str, Dict[str, Dict[str, float]]],
     result = {}
     for case_study in sorted(type_information.keys()):
         result[case_study] = {}
-        for t in T_PARAMETER:
-            error_list = []
-            all_runs_list = []
-            for type in types_to_add:
-                if to_exclude is not None and type in to_exclude:
-                    error_list.append(math.nan)
-                else:
-                    error_list.append(type_information[case_study][type][t])
-                all_runs_list.append(all_information[case_study][type][t])
+        for ml_algorithm in ML_PREFIXES:
+            result[case_study][ml_algorithm] = {}
+            for t in T_PARAMETER:
+                error_list = []
+                all_runs_list = []
+                for type_to_add in types_to_add:
+                    if to_exclude is not None and type_to_add in to_exclude:
+                        error_list.append(math.nan)
+                    else:
+                        error_list.append(type_information[case_study][ml_algorithm][type_to_add][t])
+                    all_runs_list.append(all_information[case_study][ml_algorithm][type_to_add][t])
 
-            result[case_study][t] = rank_list(error_list, all_runs_list)
+                result[case_study][ml_algorithm][t] = rank_list(error_list, all_runs_list)
     return result
 
 
@@ -270,8 +268,9 @@ def lower_first_letter(string_to_convert: str) -> str:
     return string_to_convert[0].lower()
 
 
-def compute_mean_value(types_to_add: List[str], all_information: Dict[str, Dict[str, Dict[str, float]]],
-                       to_exclude: List[str]) -> Tuple[Dict[int, list], Dict[int, List[int]]]:
+def compute_mean_value(types_to_add: List[str], all_information: Dict[str, Dict[str, Dict[str, Dict[str, float]]]],
+                       to_exclude: List[str]) \
+        -> Tuple[Dict[str, Dict[int, List[Any]]], Dict[str, Dict[int, List[int]]]]:
     """
     Computes the mean value of the given types and their ranking.
 
@@ -284,42 +283,46 @@ def compute_mean_value(types_to_add: List[str], all_information: Dict[str, Dict[
     count = {}
     type_results = {}
     mean_ranking = {}
-    for t in T_PARAMETER:
-        type_results[t] = []
-        means[t] = []
-        count[t] = []
-        for i in range(0, len(types_to_add)):
-            type_to_investigate = types_to_add[i]
-            type_results[t].append([])
-            means[t].append(0)
-            count[t].append(0)
-            for caseStudy in sorted(all_information):
-                for result in all_information[caseStudy][type_to_investigate][t]:
-                    # result = allInformation[caseStudy][type][t]
-                    type_results[t][i].append(result)
-                    means[t][i] += result
-                    count[t][i] += 1
-            means[t][i] /= count[t][i]
+    for ml_algorithm in ML_PREFIXES:
+        means[ml_algorithm] = {}
+        count[ml_algorithm] = {}
+        type_results[ml_algorithm] = {}
+        mean_ranking[ml_algorithm] = {}
+        for t in T_PARAMETER:
+            type_results[ml_algorithm][t] = []
+            means[ml_algorithm][t] = []
+            count[ml_algorithm][t] = []
+            for i in range(0, len(types_to_add)):
+                type_to_investigate = types_to_add[i]
+                type_results[ml_algorithm][t].append([])
+                means[ml_algorithm][t].append(0)
+                count[ml_algorithm][t].append(0)
+                for caseStudy in sorted(all_information):
+                    for result in all_information[caseStudy][ml_algorithm][type_to_investigate][t]:
+                        type_results[ml_algorithm][t][i].append(result)
+                        means[ml_algorithm][t][i] += result
+                        count[ml_algorithm][t][i] += 1
+                means[ml_algorithm][t][i] /= count[ml_algorithm][t][i]
 
-    # Remove the comparison to the random sampling strategy
-    means_copy = copy.deepcopy(means)
-    for t in T_PARAMETER:
-        for i in range(0, len(types_to_add)):
-            type_to_investigate = types_to_add[i]
-            if to_exclude is not None and type_to_investigate in to_exclude:
-                means_copy[t][i] = math.nan
+        # Remove the comparison to the random sampling strategy
+        means_copy = copy.deepcopy(means)
+        for t in T_PARAMETER:
+            for i in range(0, len(types_to_add)):
+                type_to_investigate = types_to_add[i]
+                if to_exclude is not None and type_to_investigate in to_exclude:
+                    means_copy[ml_algorithm][t][i] = math.nan
 
-        mean_ranking[t] = rank_list(means_copy[t], type_results[t])
+            mean_ranking[ml_algorithm][t] = rank_list(means_copy[ml_algorithm][t], type_results[ml_algorithm][t])
     return means, mean_ranking
 
 
-def write_table_to_file(output_file: str, labels_of_types: List[str], types_to_add: List[str],
-                        type_information: Dict[str, Dict[str, Dict[int, float]]],
-                        ranking: Dict[str, Dict[str, List[int]]], means=None, mean_ranking=None) -> None:
+def write_table_to_file(output_dir: str, labels_of_types: List[str], types_to_add: List[str],
+                        type_information: Dict[str, Dict[str, Dict[str, Dict[int, float]]]],
+                        ranking: Dict[str, Dict[str, Dict[str, List[int]]]], means=None, mean_ranking=None) -> None:
     """
     Writes a LaTeX-formatted table containing the results of the evaluation into a file.
 
-    :param output_file: the file to write the table into.
+    :param output_dir: the directory to write the table into.
     :param labels_of_types: a list of labels that should be used in the header of the table.
     :param types_to_add: the sampling strategies to consider.
     :param type_information: the mean error rates of each sampling strategy.
@@ -327,102 +330,104 @@ def write_table_to_file(output_file: str, labels_of_types: List[str], types_to_a
     :param means: the mean values over all case studies.
     :param mean_ranking: the mean value ranking over all case studies.
     """
-    # Write to the specified file
-    file = open(output_file, 'w')
+    for ml_algorithm in ML_PREFIXES:
+        # Write to the specified file
+        file = open(output_dir + "table" + ml_algorithm[0:len(ml_algorithm) - 1] + ".tex", 'w')
 
-    columns = FIRST_COLUMN_FORMAT
-    header = "\t\t"
-    midrules = "\t\t"
-    t_label_line = "\t\t"
-    space_between_case_studies = "\t\t"
-    # mean_separator = "\\midrule\\multicolumn{" + str(
-    #    len(labels_of_types) * len(T_PARAMETER) + 1) + "}{c}{\\cellcolor{white}} \\\\[-0.1cm]\\midrule"
+        columns = FIRST_COLUMN_FORMAT
+        header = "\t\t"
+        midrules = "\t\t"
+        t_label_line = "\t\t"
+        space_between_case_studies = "\t\t"
+        # mean_separator = "\\midrule\\multicolumn{" + str(
+        #    len(labels_of_types) * len(T_PARAMETER) + 1) + "}{c}{\\cellcolor{white}} \\\\[-0.1cm]\\midrule"
 
-    for i in range(0, len(labels_of_types)):
-        columns += OTHER_COLUMN_FORMAT[0:len(T_PARAMETER)]
+        for i in range(0, len(labels_of_types)):
+            columns += OTHER_COLUMN_FORMAT[0:len(T_PARAMETER)]
 
-        if len(T_PARAMETER) == 1:
-            header += "&" + labels_of_types[i]
-            midrules = "\\midrule"
-        else:
-            header += "& \\multicolumn{" + str(len(T_PARAMETER)) + "}{c}{" + labels_of_types[i] + "}"
-            if i < len(labels_of_types) - 1 and "rand" in labels_of_types[i + 1]:
-                midrules += "\\cmidrule(lr{1.3em}){" + str(i * 3 + 2) + "-" + str(i * 3 + 4) + "} "
+            if len(T_PARAMETER) == 1:
+                header += "&" + labels_of_types[i]
+                midrules = "\\midrule"
             else:
-                midrules += "\\cmidrule(lr){" + str(i * 3 + 2) + "-" + str(i * 3 + 4) + "} "
-        for j in T_PARAMETER:
-            t_label_line += "& $t=" + str(j) + "$"
-            space_between_case_studies += "& "
-    header += NEW_LINE
-    t_label_line += NEW_LINE + "[0.1cm] "  # \\midrule"
-    space_between_case_studies += NEW_LINE
-
-    # Write the header of the table
-    file.writelines(add_new_line(["\\begin{adjustbox}{angle=0}",
-                                  "\t\\begin{tabular}{" + columns + "}",
-                                  "\t\\toprule",
-                                  header,
-                                  midrules]))
-    if len(T_PARAMETER) > 1:
-        file.writelines(add_new_line([t_label_line,
-                                      space_between_case_studies + "[-0.2cm]"]))
-
-    # Write the results of every case study
-    case_study_lines = []
-    for case_study_directory in sorted(type_information.keys(), key=lower_first_letter):
-        case_study_line = "\t\t"
-        if case_study_directory in CASE_STUDY_MAPPING:
-            case_study_line += CASE_STUDY_MAPPING[case_study_directory]
-        else:
-            case_study_line += case_study_directory
-
-        for type_to_investigate in types_to_add:
-            for t in T_PARAMETER:
-                if math.isnan(type_information[case_study_directory][type_to_investigate][t]):
-                    result_to_print = "--"
+                header += "& \\multicolumn{" + str(len(T_PARAMETER)) + "}{c}{" + labels_of_types[i] + "}"
+                if i < len(labels_of_types) - 1 and "rand" in labels_of_types[i + 1]:
+                    midrules += "\\cmidrule(lr{1.3em}){" + str(i * 3 + 2) + "-" + str(i * 3 + 4) + "} "
                 else:
-                    result_to_print = str(round_error(type_information[case_study_directory][type_to_investigate][t])) + \
-                                      PERCENT
+                    midrules += "\\cmidrule(lr){" + str(i * 3 + 2) + "-" + str(i * 3 + 4) + "} "
+            for j in T_PARAMETER:
+                t_label_line += "& $t=" + str(j) + "$"
+                space_between_case_studies += "& "
+        header += NEW_LINE
+        t_label_line += NEW_LINE + "[0.1cm] "  # \\midrule"
+        space_between_case_studies += NEW_LINE
 
-                if ranking is None or ranking[case_study_directory][t][types_to_add.index(type_to_investigate)] > 1:
-                    case_study_line += "&" + result_to_print
-                else:
-                    case_study_line += "&" + BEST_FORMAT_PREFIX + \
-                                       result_to_print + \
-                                       BEST_FORMAT_SUFIX
-        case_study_line += NEW_LINE
-        case_study_lines.append(case_study_line)
-        case_study_lines.append(space_between_case_studies + "[-0.3cm]")
+        # Write the header of the table
+        file.writelines(add_new_line(["\\begin{adjustbox}{angle=0}",
+                                      "\t\\begin{tabular}{" + columns + "}",
+                                      "\t\\toprule",
+                                      header,
+                                      midrules]))
+        if len(T_PARAMETER) > 1:
+            file.writelines(add_new_line([t_label_line,
+                                          space_between_case_studies + "[-0.2cm]"]))
 
-    # Remove the last space, as it is not needed
-    case_study_lines = case_study_lines[0:len(case_study_lines) - 1]
+        # Write the results of every case study
+        case_study_lines = []
+        for case_study_directory in sorted(type_information.keys(), key=lower_first_letter):
+            case_study_line = "\t\t"
+            if case_study_directory in CASE_STUDY_MAPPING:
+                case_study_line += CASE_STUDY_MAPPING[case_study_directory]
+            else:
+                case_study_line += case_study_directory
 
-    if means is not None and mean_ranking is not None:
-        # Add a line for the mean values and their ranking
-        # caseStudyLines.append(meanSeparator)
-        mean_line = "Mean "
+            for type_to_investigate in types_to_add:
+                for t in T_PARAMETER:
+                    if math.isnan(type_information[case_study_directory][ml_algorithm][type_to_investigate][t]):
+                        result_to_print = "--"
+                    else:
+                        result_to_print = str(round_error(type_information[case_study_directory][ml_algorithm][type_to_investigate][t])) + \
+                                          PERCENT
 
-        for type_to_investigate in types_to_add:
-            for t in T_PARAMETER:
-                result_to_print = str(round_error(means[t][types_to_add.index(type_to_investigate)])) + PERCENT
-                if mean_ranking[t][types_to_add.index(type_to_investigate)] > 1:
-                    mean_line += " & " + result_to_print
-                else:
-                    mean_line += " & " + BEST_FORMAT_PREFIX + result_to_print + BEST_FORMAT_SUFIX
-        mean_line += NEW_LINE
-        case_study_lines.append(mean_line)
+                    if ranking is None or ranking[case_study_directory][ml_algorithm][t][types_to_add.index(type_to_investigate)] > 1:
+                        case_study_line += "&" + result_to_print
+                    else:
+                        case_study_line += "&" + BEST_FORMAT_PREFIX + \
+                                           result_to_print + \
+                                           BEST_FORMAT_SUFIX
+            case_study_line += NEW_LINE
+            case_study_lines.append(case_study_line)
+            case_study_lines.append(space_between_case_studies + "[-0.3cm]")
 
-    file.writelines(add_new_line(case_study_lines))
+        # Remove the last space, as it is not needed
+        case_study_lines = case_study_lines[0:len(case_study_lines) - 1]
 
-    # Close all environments
-    file.writelines(add_new_line(["\t\t\\bottomrule",
-                                  "\t\\end{tabular}",
-                                  "\\end{adjustbox}"]))
+        if means is not None and mean_ranking is not None:
+            # Add a line for the mean values and their ranking
+            # caseStudyLines.append(meanSeparator)
+            mean_line = "Mean "
 
-    file.close()
+            for type_to_investigate in types_to_add:
+                for t in T_PARAMETER:
+                    result_to_print = str(round_error(means[ml_algorithm][t][types_to_add.index(type_to_investigate)])) + PERCENT
+                    if mean_ranking[ml_algorithm][t][types_to_add.index(type_to_investigate)] > 1:
+                        mean_line += " & " + result_to_print
+                    else:
+                        mean_line += " & " + BEST_FORMAT_PREFIX + result_to_print + BEST_FORMAT_SUFIX
+            mean_line += NEW_LINE
+            case_study_lines.append(mean_line)
+
+        file.writelines(add_new_line(case_study_lines))
+
+        # Close all environments
+        file.writelines(add_new_line(["\t\t\\bottomrule",
+                                      "\t\\end{tabular}",
+                                      "\\end{adjustbox}"]))
+
+        file.close()
 
 
-def export_for_r(output_file: str, data: Dict[str, Dict[str, Dict[int, Any]]], to_exclude: List[str] = None) -> None:
+def export_for_r(output_file: str, data: Dict[str, Dict[str, Dict[str, Dict[int, Any]]]], ml_algorithm: str,
+                 to_exclude: List[str] = None) -> None:
     """
     Exports the whole data for another R script. The R script is then concerned with executing the statistical tests.
 
@@ -433,16 +438,16 @@ def export_for_r(output_file: str, data: Dict[str, Dict[str, Dict[int, Any]]], t
     with open(output_file, 'w') as file:
         file.write("CaseStudy;Strategy;t;Result\n")
         for caseStudy in data:
-            for type in data[caseStudy]:
-                if to_exclude is not None and type in to_exclude:
+            for type_to_add in data[caseStudy][ml_algorithm]:
+                if to_exclude is not None and type_to_add in to_exclude:
                     continue
                 for t in T_PARAMETER:
-                    for result in data[caseStudy][type][t]:
-                        file.write(caseStudy + ";" + type + ";" + str(t) + ";" +
+                    for result in data[caseStudy][ml_algorithm][type_to_add][t]:
+                        file.write(caseStudy + ";" + type_to_add + ";" + str(t) + ";" +
                                    str(result) + "\n")
 
 
-def read_in_from_r(input_file: str) -> Dict[str, Tuple[str, List[Tuple[str, float]]]]:
+def read_in_from_r(input_file: str) -> Dict[int, Tuple[float, List[Tuple[str, float, float]]]]:
     """
     Reads in the data from R.
 
@@ -501,7 +506,7 @@ def compute_standard_deviation(types_to_add: List[str],
 
 
 def perform_r_test(all_information: Dict[str, Dict[str, Dict[int, List[float]]]], kruskal: bool = True,
-                   to_exclude: List[str] = None) -> Dict[str, Tuple[str, List[Tuple[str, float]]]]:
+                   to_exclude: List[str] = None) -> Dict[str, Dict[int, Tuple[float, List[Tuple[str, float, float]]]]]:
     """
     Performs the statistical tests to determine the ranking of the sampling strategies.
 
@@ -518,24 +523,26 @@ def perform_r_test(all_information: Dict[str, Dict[str, Dict[int, List[float]]]]
 
     print("Path: " + dir_path)
 
-    # Print data in file
-    file = dir_path + os.sep + "in.csv"
-    export_for_r(file, all_information, to_exclude)
+    kruskal_results = {}
+    for ml_algorithm in ML_PREFIXES:
+        # Print data in file
+        file = dir_path + os.sep + "in.csv"
+        export_for_r(file, all_information, ml_algorithm, to_exclude)
 
-    r_output_file = dir_path + os.sep + "out.csv"
+        r_output_file = dir_path + os.sep + "out.csv"
 
-    # Execute R script
-    command = "Rscript"
-    script_path = os.getcwd() + "/PerformKruskalWallis.R"
+        # Execute R script
+        command = "Rscript"
+        script_path = os.getcwd() + "/PerformKruskalWallis.R"
 
-    arguments = [file, r_output_file, approach]
+        arguments = [file, r_output_file, approach]
 
-    cmd = [command, script_path] + arguments
+        cmd = [command, script_path] + arguments
 
-    subprocess.check_call(cmd)
+        subprocess.check_call(cmd)
 
-    # Read in results
-    kruskal_results = read_in_from_r(r_output_file)
+        # Read in results
+        kruskal_results[ml_algorithm] = read_in_from_r(r_output_file)
 
     return kruskal_results
 
@@ -562,6 +569,7 @@ def format_p_result(p_value: float, eff_size: float = None) -> List[str]:
     :param eff_size: the effect size (if included).
     :return: a list containing the formatted p value and the effect size (if included).
     """
+    number = 0
     if p_value == 0:
         exponent = float("-inf")
     else:
@@ -596,7 +604,8 @@ def format_p_result(p_value: float, eff_size: float = None) -> List[str]:
     return [result]
 
 
-def write_test_results_to_file(output_file: str, kruskal_result: Dict[str, Tuple[str, List[Tuple[str, float]]]],
+def write_test_results_to_file(output_file: str,
+                               kruskal_result: Dict[str, Dict[int, Tuple[float, List[Tuple[str, float, float]]]]],
                                types_to_add: List[str], labels_of_types: List[str], to_exclude: List[str],
                                kruskal: bool) -> None:
     """
@@ -609,122 +618,125 @@ def write_test_results_to_file(output_file: str, kruskal_result: Dict[str, Tuple
     :param to_exclude: the sampling strategies to exclude.
     :param kruskal: whether to perform the Kruskal-Wallis test of the Levene's test.
     """
-    if kruskal:
-        test_description = "Kruskal-Wallis test"
-        pairwise_test_description = "Mann-Whitney U test"
-        test_table_file = output_file + "kruskalTable.tex"
-        pairwise_test_table_file = output_file + "mwuTable.tex"
-    else:
-        test_description = "Levene's test"
-        pairwise_test_description = "F-test"
-        test_table_file = output_file + "leveneTable.tex"
-        pairwise_test_table_file = output_file + "fTable.tex"
-
-    # 1. Table: Table containing the p-value results from the Kruskal-Wallis test
-    with open(test_table_file, 'w') as file:
-        file.writelines(add_new_line(["\\begin{tabular}{l r}",
-                                      "\\toprule",
-                                      "\\multicolumn{2}{c}{\\texttt{" + test_description + "}}\\\\",
-                                      "\\midrule",
-                                      "& \\textit{p}-value " + NEW_LINE,
-                                      "\\midrule"]))
-
-        for t in kruskal_result.keys():
-            file.writelines(add_new_line(["t=" + str(t) + " & " + format_p_result(kruskal_result[t][0])[0] + NEW_LINE]))
-
-        file.writelines(add_new_line(["\\bottomrule",
-                                      "\\end{tabular}"]))
-
-    # 2. Table: Table containing the dunn-test values for the pair-wise comparisons
-    with open(pairwise_test_table_file, 'w') as file:
-        columns = FIRST_COLUMN_FORMAT
-        header = ""
-        midrules = ""
-        t_label_line = ""
-        space_between_case_studies = ""
-        # Remove all irrelevant columns
-        remaining_labels = list(labels_of_types)
-        remaining_types = list(types_to_add)
-        for exclude in to_exclude:
-            remaining_labels.remove(labels_of_types[types_to_add.index(exclude)])
-            remaining_types.remove(exclude)
-
-        column_counter = 1
-
-        for i in range(0, len(remaining_labels)):
-            column_counter += 3
-            columns += OTHER_COLUMN_FORMAT
-
-            header += "& \\multicolumn{3}{c}{" + remaining_labels[i] + "}"
-            midrules += "\\cmidrule(lr){" + str(i * 3 + 2) + "-" + str(i * 3 + 4) + "} "
-            for j in T_PARAMETER:
-                t_label_line += "& $t=" + str(j) + "$"
-                space_between_case_studies += "& "
-        header += NEW_LINE
-        t_label_line += NEW_LINE + "[0.1cm] "  # \\midrule"
-        space_between_case_studies += NEW_LINE
-
-        if (kruskal):
-            p_value_text = " [\\textit{p} value ($\hat{A}_{12}$)]}}\\\\"
+    for ml_algorithm in ML_PREFIXES:
+        if kruskal:
+            test_description = "Kruskal-Wallis test"
+            pairwise_test_description = "Mann-Whitney U test"
+            test_table_file = output_file + "kruskalTable" + ml_algorithm[0:len(ml_algorithm) - 1] + ".tex"
+            pairwise_test_table_file = output_file + "mwuTable" + ml_algorithm[0:len(ml_algorithm) - 1] + ".tex"
         else:
-            p_value_text = " (\\textit{p} value)}}\\\\"
+            test_description = "Levene's test"
+            pairwise_test_description = "F-test"
+            test_table_file = output_file + "leveneTable" + ml_algorithm[0:len(ml_algorithm) - 1] + ".tex"
+            pairwise_test_table_file = output_file + "fTable" + ml_algorithm[0:len(ml_algorithm) - 1] + ".tex"
 
-        # Write the header of the table
-        file.writelines(add_new_line(["\\begin{tabular}{" + columns + "}",
-                                      "\\toprule",
-                                      "\\multicolumn{" + str(
-                                          column_counter) + "}{c}{\\normalfont{" + pairwise_test_description + p_value_text,
-                                      "\\midrule",
-                                      header,
-                                      midrules,
-                                      t_label_line,
-                                      space_between_case_studies + "[-0.3cm]"]))
+        # 1. Table: Table containing the p-value results from the Kruskal-Wallis test
+        with open(test_table_file, 'w') as file:
+            file.writelines(add_new_line(["\\begin{tabular}{l r}",
+                                          "\\toprule",
+                                          "\\multicolumn{2}{c}{\\texttt{" + test_description + "}}\\\\",
+                                          "\\midrule",
+                                          "& \\textit{p}-value " + NEW_LINE,
+                                          "\\midrule"]))
 
-        # Write the p-values for all comparisons
-        lines_to_write = []
-        for i in range(0, len(remaining_types)):
+            for t in kruskal_result[ml_algorithm].keys():
+                file.writelines(add_new_line(["t=" + str(t) + " & " + format_p_result(
+                    kruskal_result[ml_algorithm][t][0])[0] + NEW_LINE]))
+
+            file.writelines(add_new_line(["\\bottomrule",
+                                          "\\end{tabular}"]))
+
+        # 2. Table: Table containing the dunn-test values for the pair-wise comparisons
+        with open(pairwise_test_table_file, 'w') as file:
+            columns = FIRST_COLUMN_FORMAT
+            header = ""
+            midrules = ""
+            t_label_line = ""
+            space_between_case_studies = ""
+            # Remove all irrelevant columns
+            remaining_labels = list(labels_of_types)
+            remaining_types = list(types_to_add)
+            for exclude in to_exclude:
+                remaining_labels.remove(labels_of_types[types_to_add.index(exclude)])
+                remaining_types.remove(exclude)
+
+            column_counter = 1
+
+            for i in range(0, len(remaining_labels)):
+                column_counter += 3
+                columns += OTHER_COLUMN_FORMAT
+
+                header += "& \\multicolumn{3}{c}{" + remaining_labels[i] + "}"
+                midrules += "\\cmidrule(lr){" + str(i * 3 + 2) + "-" + str(i * 3 + 4) + "} "
+                for j in T_PARAMETER:
+                    t_label_line += "& $t=" + str(j) + "$"
+                    space_between_case_studies += "& "
+            header += NEW_LINE
+            t_label_line += NEW_LINE + "[0.1cm] "  # \\midrule"
+            space_between_case_studies += NEW_LINE
+
             if kruskal:
-                line_to_write = ""
-                second_line_to_write = "\\multirow{-2}{*}{" + remaining_labels[i] + "}"
+                p_value_text = " [\\textit{p} value ($\hat{A}_{12}$)]}}\\\\"
             else:
-                line_to_write = remaining_labels[i]
-                second_line_to_write = ""
-            for j in range(0, len(remaining_types)):
-                if j == i:
-                    line_to_write += " & \\multicolumn{3}{c}{\\cellcolor{white} \\noindent}"
-                    second_line_to_write += "& \\multicolumn{3}{c}{\\cellcolor{white}}"
+                p_value_text = " (\\textit{p} value)}}\\\\"
+
+            # Write the header of the table
+            file.writelines(add_new_line(["\\begin{tabular}{" + columns + "}",
+                                          "\\toprule",
+                                          "\\multicolumn{" + str(
+                                              column_counter) + "}{c}{\\normalfont{" + pairwise_test_description +
+                                          p_value_text,
+                                          "\\midrule",
+                                          header,
+                                          midrules,
+                                          t_label_line,
+                                          space_between_case_studies + "[-0.3cm]"]))
+
+            # Write the p-values for all comparisons
+            lines_to_write = []
+            for i in range(0, len(remaining_types)):
+                if kruskal:
+                    line_to_write = ""
+                    second_line_to_write = "\\multirow{-2}{*}{" + remaining_labels[i] + "}"
                 else:
-                    # Search for the right comparison
-                    for t in T_PARAMETER:
-                        if len(kruskal_result[t][1]) == 0:
-                            continue
-                        comp_strats = [remaining_types[i], remaining_types[j]]
-                        comp_string = comp_strats[0] + " - " + comp_strats[1]
-                        t_result = search_for_tuple(comp_string, kruskal_result[t][1])
+                    line_to_write = remaining_labels[i]
+                    second_line_to_write = ""
+                for j in range(0, len(remaining_types)):
+                    if j == i:
+                        line_to_write += " & \\multicolumn{3}{c}{\\cellcolor{white} \\noindent}"
+                        second_line_to_write += "& \\multicolumn{3}{c}{\\cellcolor{white}}"
+                    else:
+                        # Search for the right comparison
+                        for t in T_PARAMETER:
+                            if len(kruskal_result[ml_algorithm][t][1]) == 0:
+                                continue
+                            comp_strats = [remaining_types[i], remaining_types[j]]
+                            comp_string = comp_strats[0] + " - " + comp_strats[1]
+                            t_result = search_for_tuple(comp_string, kruskal_result[ml_algorithm][t][1])
 
-                        if len(t_result) == 3:
-                            formated_result = format_p_result(t_result[1], t_result[2])
-                            line_to_write += " & " + formated_result[0]
-                            second_line_to_write += "& "
-                            if len(formated_result) == 2:
-                                second_line_to_write += formated_result[1]
-                        else:
-                            line_to_write += " & " + format_p_result(t_result[1])[0]
+                            if len(t_result) == 3:
+                                formated_result = format_p_result(t_result[1], t_result[2])
+                                line_to_write += " & " + formated_result[0]
+                                second_line_to_write += "& "
+                                if len(formated_result) == 2:
+                                    second_line_to_write += formated_result[1]
+                            else:
+                                line_to_write += " & " + format_p_result(t_result[1])[0]
 
-            line_to_write += NEW_LINE
-            second_line_to_write += NEW_LINE
-            if (kruskal):
-                lines_to_write.append(line_to_write + "[-0.1cm]")
-                lines_to_write.append(second_line_to_write)
-            else:
-                lines_to_write.append(line_to_write)
-            lines_to_write.append(space_between_case_studies + "[-0.3cm]")
-        lines_to_write = lines_to_write[:len(lines_to_write) - 1]
+                line_to_write += NEW_LINE
+                second_line_to_write += NEW_LINE
+                if kruskal:
+                    lines_to_write.append(line_to_write + "[-0.1cm]")
+                    lines_to_write.append(second_line_to_write)
+                else:
+                    lines_to_write.append(line_to_write)
+                lines_to_write.append(space_between_case_studies + "[-0.3cm]")
+            lines_to_write = lines_to_write[:len(lines_to_write) - 1]
 
-        file.writelines(add_new_line(lines_to_write))
+            file.writelines(add_new_line(lines_to_write))
 
-        file.writelines(["\\bottomrule",
-                         "\\end{tabular}"])
+            file.writelines(["\\bottomrule",
+                             "\\end{tabular}"])
 
 
 def main() -> None:
@@ -762,7 +774,7 @@ def main() -> None:
 
     means, mean_ranking = compute_mean_value(types_to_add, all_information, TO_IGNORE_RQ1)
 
-    write_table_to_file(output_directory + os.path.sep + "table.tex", labels_to_add, types_to_add, avg_information,
+    write_table_to_file(output_directory + os.path.sep, labels_to_add, types_to_add, avg_information,
                         ranking, means, mean_ranking)
 
     kruskal_result = perform_r_test(all_information, kruskal=True, to_exclude=[])

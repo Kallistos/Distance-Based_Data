@@ -10,7 +10,7 @@ import re
 from typing import Dict, List, Any, Tuple
 
 TYPES = ["grammarBased", "random", "henard", "divDistBased", "twise", "solverBased"]
-CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "JavaGC", "LLVM", "lrzip", "Polly", "VP9", "x264"]
+CASE_STUDIES = ["7z", "JavaGC", "Polly"]#, "BerkeleyDBC", "Dune", "Hipacc", "JavaGC", "LLVM", "lrzip", "Polly", "VP9", "x264"]
 # CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "LLVM", "lrzip", "Polly"]
 # CASE_STUDIES = ["lrzip"]
 
