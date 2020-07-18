@@ -7,6 +7,38 @@ Configs with too large deviation: 0
 2304 configurations loaded.
 command: binary grammar-based numConfigs:1071 seed:39
 command: printconfigs ./sampledConfigurations_grammarBased_t3.csv
-ConfigurationSampling done in 8986 ms
+invalid number: 1 respective config: Precon, SeqGS, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
+invalid number: 1181 respective config: Precon, SeqSOR, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
+invalid number: 887 respective config: Precon, SeqGS, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
+invalid number: 1765 respective config: Precon, SeqSOR, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
+invalid number: 0 respective config: Precon, SeqGS, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_50, root
+invalid number: 1179 respective config: Precon, SeqSOR, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_53, root
+invalid number: 299 respective config: Precon, SeqGS, Solver, BiCGSTABSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
+invalid number: 591 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_53, root
+invalid number: 1766 respective config: Precon, SeqSOR, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_52, root
+invalid number: 1181 respective config: Precon, SeqSOR, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
+invalid number: 1178 respective config: Precon, SeqSOR, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_52, root
+invalid number: 2059 respective config: Precon, SeqSOR, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
+invalid number: 1470 respective config: Precon, SeqSOR, Solver, BiCGSTABSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_50, root
+invalid number: 883 respective config: Precon, SeqGS, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
+invalid number: 1473 respective config: Precon, SeqSOR, Solver, BiCGSTABSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_53, root
+invalid number: 884 respective config: Precon, SeqGS, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_52, root
+invalid number: 884 respective config: Precon, SeqGS, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_52, root
+invalid number: 588 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_50, root
+invalid number: 592 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_54, root
+invalid number: 1180 respective config: Precon, SeqSOR, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_54, root
+invalid number: 593 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
+invalid number: 593 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
+invalid number: 3 respective config: Precon, SeqGS, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_53, root
+invalid number: 295 respective config: Precon, SeqGS, Solver, BiCGSTABSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
+ConfigurationSampling done in 9185 ms
+2352
+root ::= (Precon, 2)   (Solver, 4)   (PreSmoothing, 7)   (PostSmoothing, 7)   (Cells, 6) Symbolkind: NONTERMINAL
+Precon ::= (SeqGS, 1) | (SeqSOR, 1) Symbolkind: TERMINAL
+Solver ::= (CGSolver, 1) | (BiCGSTABSolver, 1) | (LoopSolver, 1) | (GradientSolver, 1) Symbolkind: TERMINAL
+PreSmoothing ::= (pre_0, 1) | (pre_1, 1) | (pre_2, 1) | (pre_3, 1) | (pre_4, 1) | (pre_5, 1) | (pre_6, 1) Symbolkind: TERMINAL
+PostSmoothing ::= (post_0, 1) | (post_1, 1) | (post_2, 1) | (post_3, 1) | (post_4, 1) | (post_5, 1) | (post_6, 1) Symbolkind: TERMINAL
+Cells ::= (cells_50, 1) | (cells_51, 1) | (cells_52, 1) | (cells_53, 1) | (cells_54, 1) | (cells_55, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global

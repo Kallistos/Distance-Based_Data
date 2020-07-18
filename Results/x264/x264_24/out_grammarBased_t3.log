@@ -7,6 +7,19 @@ Configs with too large deviation: 0
 1152 configurations loaded.
 command: binary grammar-based numConfigs:212 seed:24
 command: printconfigs ./sampledConfigurations_grammarBased_t3.csv
-ConfigurationSampling done in 1662 ms
+ConfigurationSampling done in 1641 ms
+1152
+no_asm ::= (no_asm, 1) Symbolkind: TERMINAL
+no_8x8dct ::= (ε, 1) | (no_8x8dct, 1) Symbolkind: TERMINAL
+no_cabac ::= (ε, 1) | (no_cabac, 1) Symbolkind: TERMINAL
+no_deblock ::= (ε, 1) | (no_deblock, 1) Symbolkind: TERMINAL
+no_fast_pskip ::= (ε, 1) | (no_fast_pskip, 1) Symbolkind: TERMINAL
+no_mbtree ::= (ε, 1) | (no_mbtree, 1) Symbolkind: TERMINAL
+no_mixed_refs ::= (ε, 1) | (no_mixed_refs, 1) Symbolkind: TERMINAL
+no_weightb ::= (ε, 1) | (no_weightb, 1) Symbolkind: TERMINAL
+root ::= (no_asm, 1)   (no_8x8dct, 2)   (no_cabac, 2)   (no_deblock, 2)   (no_fast_pskip, 2)   (no_mbtree, 2)   (no_mixed_refs, 2)   (no_weightb, 2)   (rc_lookahead, 3)   (ref, 3) Symbolkind: NONTERMINAL
+rc_lookahead ::= (rc_lookahead_20, 1) | (rc_lookahead_40, 1) | (rc_lookahead_60, 1) Symbolkind: TERMINAL
+ref ::= (ref_1, 1) | (ref_5, 1) | (ref_9, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global

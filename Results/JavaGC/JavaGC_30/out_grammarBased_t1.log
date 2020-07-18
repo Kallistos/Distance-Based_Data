@@ -6,7 +6,21 @@ Configs with too large deviation: 0
 193536 configurations loaded.
 command: binary grammar-based numConfigs:32 seed:30
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
-ConfigurationSampling done in 363 ms
+ConfigurationSampling done in 375 ms
+193536
+DisableExplicitGC ::= (ε, 1) | (DisableExplicitGC, 1) Symbolkind: TERMINAL
+UseAdaptiveGCBoundary ::= (ε, 1) | (UseAdaptiveGCBoundary, 1) Symbolkind: TERMINAL
+UseAdaptiveSizeDecayMajorGCCost ::= (ε, 1) | (UseAdaptiveSizeDecayMajorGCCost, 1) Symbolkind: TERMINAL
+UseAdaptiveSizePolicy ::= (ε, 1) | (UseAdaptiveSizePolicy, 1) Symbolkind: TERMINAL
+UseAdaptiveSizePolicyFootprintGoal ::= (ε, 1) | (UseAdaptiveSizePolicyFootprintGoal, 1) Symbolkind: TERMINAL
+root ::= (DisableExplicitGC, 2)   (UseAdaptiveGCBoundary, 2)   (UseAdaptiveSizeDecayMajorGCCost, 2)   (UseAdaptiveSizePolicy, 2)   (UseAdaptiveSizePolicyFootprintGoal, 2)   (MaxTenuringThreshold, 3)   (MinSurvivorRatio, 4)   (NewRatio, 6)   (SurvivorRatio, 7)   (TenuredGenerationSizeSupplement, 3)   (TenuredGenerationSizeSupplementDecay, 4) Symbolkind: NONTERMINAL
+MaxTenuringThreshold ::= (MaxTenuringThreshold_5, 1) | (MaxTenuringThreshold_10, 1) | (MaxTenuringThreshold_15, 1) Symbolkind: TERMINAL
+MinSurvivorRatio ::= (MinSurvivorRatio_1, 1) | (MinSurvivorRatio_4, 1) | (MinSurvivorRatio_7, 1) | (MinSurvivorRatio_10, 1) Symbolkind: TERMINAL
+NewRatio ::= (NewRatio_1, 1) | (NewRatio_2, 1) | (NewRatio_4, 1) | (NewRatio_8, 1) | (NewRatio_16, 1) | (NewRatio_32, 1) Symbolkind: TERMINAL
+SurvivorRatio ::= (SurvivorRatio_1, 1) | (SurvivorRatio_6, 1) | (SurvivorRatio_11, 1) | (SurvivorRatio_16, 1) | (SurvivorRatio_21, 1) | (SurvivorRatio_26, 1) | (SurvivorRatio_31, 1) Symbolkind: TERMINAL
+TenuredGenerationSizeSupplement ::= (TenuredGenerationSizeSupplement_50, 1) | (TenuredGenerationSizeSupplement_70, 1) | (TenuredGenerationSizeSupplement_90, 1) Symbolkind: TERMINAL
+TenuredGenerationSizeSupplementDecay ::= (TenuredGenerationSizeSupplementDecay_2, 1) | (TenuredGenerationSizeSupplementDecay_4, 1) | (TenuredGenerationSizeSupplementDecay_8, 1) | (TenuredGenerationSizeSupplementDecay_16, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global
 command: script ./learn_grammarBased_t2.a

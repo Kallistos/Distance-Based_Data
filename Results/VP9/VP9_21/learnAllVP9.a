@@ -1,0 +1,6 @@
+script ./learn_divDistBased_t1SVR.a
+clean-global
+script ./learn_divDistBased_t2SVR.a
+clean-global
+script ./learn_divDistBased_t3SVR.a
+clean-global

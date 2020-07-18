@@ -2,9 +2,23 @@ Current machine learning settings: epsilon:0 lossFunction:RELATIVE parallelizati
 command: solver z3
 command: vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/VP9/FeatureModel.xml
 command: all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/VP9/measurements.csv
-216001 configurations loaded.
+216000 configurations loaded.
 command: binary grammar-based numConfigs:3893 seed:66
 command: printconfigs ./sampledConfigurations_grammarBased_t3.csv
-ConfigurationSampling done in 33470 ms
+ConfigurationSampling done in 32836 ms
+216000
+AutoAltRef ::= (ε, 1) | (AutoAltRef, 1) Symbolkind: TERMINAL
+lossless ::= (ε, 1) | (lossless, 1) Symbolkind: TERMINAL
+FrameBoost ::= (ε, 1) | (FrameBoost, 1) Symbolkind: TERMINAL
+root ::= (Quality, 2)   (AutoAltRef, 2)   (AdaptiveQuantizationMode, 4)   (endUsage, 3)   (lossless, 2)   (FrameBoost, 2)   (lagInFrames, 3)   (bitRate, 5)   (Threads, 5)   (cpuUsed, 5)   (TileColumns, 3) Symbolkind: NONTERMINAL
+Quality ::= (good, 1) | (realtime, 1) Symbolkind: TERMINAL
+AdaptiveQuantizationMode ::= (off, 1) | (variance, 1) | (complexity, 1) | (cyclicRefresh, 1) Symbolkind: TERMINAL
+endUsage ::= (variableBitrate, 1) | (constantBitrate, 1) | (constrainedQuality, 1) Symbolkind: TERMINAL
+lagInFrames ::= (lagInFrames_0, 1) | (lagInFrames_8, 1) | (lagInFrames_16, 1) Symbolkind: TERMINAL
+bitRate ::= (bitRate_300, 1) | (bitRate_600, 1) | (bitRate_900, 1) | (bitRate_1200, 1) | (bitRate_1500, 1) Symbolkind: TERMINAL
+Threads ::= (Threads_2, 1) | (Threads_4, 1) | (Threads_6, 1) | (Threads_8, 1) | (Threads_10, 1) Symbolkind: TERMINAL
+cpuUsed ::= (cpuUsed_0, 1) | (cpuUsed_2, 1) | (cpuUsed_4, 1) | (cpuUsed_6, 1) | (cpuUsed_8, 1) Symbolkind: TERMINAL
+TileColumns ::= (TileColumns_0, 1) | (TileColumns_3, 1) | (TileColumns_6, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global

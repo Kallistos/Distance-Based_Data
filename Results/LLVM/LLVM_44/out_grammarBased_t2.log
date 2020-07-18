@@ -7,7 +7,21 @@ Configs with too large deviation: 0
 1024 configurations loaded.
 command: binary grammar-based numConfigs:56 seed:44
 command: printconfigs ./sampledConfigurations_grammarBased_t2.csv
-ConfigurationSampling done in 414 ms
+ConfigurationSampling done in 408 ms
+1024
+time_passes ::= (time_passes, 1) Symbolkind: TERMINAL
+gvn ::= (ε, 1) | (gvn, 1) Symbolkind: TERMINAL
+instcombine ::= (ε, 1) | (instcombine, 1) Symbolkind: TERMINAL
+inline ::= (ε, 1) | (inline, 1) Symbolkind: TERMINAL
+jump_threading ::= (ε, 1) | (jump_threading, 1) Symbolkind: TERMINAL
+simplifycfg ::= (ε, 1) | (simplifycfg, 1) Symbolkind: TERMINAL
+sccp ::= (ε, 1) | (sccp, 1) Symbolkind: TERMINAL
+print_used_types ::= (ε, 1) | (print_used_types, 1) Symbolkind: TERMINAL
+ipsccp ::= (ε, 1) | (ipsccp, 1) Symbolkind: TERMINAL
+iv_users ::= (ε, 1) | (iv_users, 1) Symbolkind: TERMINAL
+licm ::= (ε, 1) | (licm, 1) Symbolkind: TERMINAL
+root ::= (time_passes, 1)   (gvn, 2)   (instcombine, 2)   (inline, 2)   (jump_threading, 2)   (simplifycfg, 2)   (sccp, 2)   (print_used_types, 2)   (ipsccp, 2)   (iv_users, 2)   (licm, 2) Symbolkind: NONTERMINAL
+
 command: clean-sampling
 command: clean-global
 command: script ./learn_grammarBased_t3.a

@@ -57,13 +57,11 @@ createAFiles () {
           # Write in a-file
           > ${file};
           echo "log ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))Predictions${ML_TYPE}${LOG_SUFIX}" >> ${file};
-          if [ ${twCounter} = "1" ]; then
-            echo "solver z3" >> ${file}
-            echo "vm ${path}FeatureModel.xml" >> ${file};
-            echo "all ${csvFile}" >> ${file};
-            echo "nfp Performance" >> ${file};
-            echo "setsampleset ${sampleFile}" >> ${file};
-          fi
+          echo "solver z3" >> ${file}
+          echo "vm ${path}FeatureModel.xml" >> ${file};
+          echo "all ${csvFile}" >> ${file};
+          echo "nfp Performance" >> ${file};
+          echo "setsampleset ${sampleFile}" >> ${file};
           if [ ${ML_TYPE} = "MLR" ]; then
             echo "learn-splconqueror-opt abortError=[1] minImprovementPerRound=[0.1,0.2,0.5] lossFunction=[RELATIVE] quadraticFunctionSupport=[True,False] learn_logFunction=[True,False] learn_asymFunction=[True,False] learn_ratioFunction=[True,False] withHierarchy=[False] useBackward=[False]" >> ${file};
           fi
@@ -79,8 +77,8 @@ createAFiles () {
         done
 }
 
-if [ $# -ne 3 ] && [ $# -ne 5 ]; then
-        echo "Usage: <CaseStudy> <MultiplicationFactor> <Strategy> [FirstIteration] [LastIteration]";
+if [ $# -ne 4 ] && [ $# -ne 6 ]; then
+        echo "Usage: <CaseStudy> <MultiplicationFactor> <Strategy> <ML_Type> [FirstIteration] [LastIteration]";
         exit;
 fi
 

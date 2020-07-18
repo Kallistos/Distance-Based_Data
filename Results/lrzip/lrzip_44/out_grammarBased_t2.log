@@ -7,7 +7,40 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary grammar-based numConfigs:99 seed:44
 command: printconfigs ./sampledConfigurations_grammarBased_t2.csv
-ConfigurationSampling done in 795 ms
+invalid number: 210 respective config: compression, level, level8, unlimitedWindowSize, root
+invalid number: 412 respective config: encryption, compression, level, level5, root
+invalid number: 398 respective config: encryption, compression, level, level1, unlimitedWindowSize, root
+invalid number: 426 respective config: encryption, compression, level, level8, unlimitedWindowSize, root
+invalid number: 429 respective config: encryption, compression, level, level9, disableCompressibilityTesting, root
+invalid number: 185 respective config: compression, level, level2, disableCompressibilityTesting, root
+invalid number: 414 respective config: encryption, compression, level, level5, unlimitedWindowSize, root
+invalid number: 206 respective config: compression, level, level7, unlimitedWindowSize, root
+invalid number: 417 respective config: encryption, compression, level, level6, disableCompressibilityTesting, root
+invalid number: 407 respective config: encryption, compression, level, level3, unlimitedWindowSize, disableCompressibilityTesting, root
+invalid number: 214 respective config: compression, level, level9, unlimitedWindowSize, root
+invalid number: 183 respective config: compression, level, level1, unlimitedWindowSize, disableCompressibilityTesting, root
+invalid number: 430 respective config: encryption, compression, level, level9, unlimitedWindowSize, root
+invalid number: 189 respective config: compression, level, level3, disableCompressibilityTesting, root
+invalid number: 418 respective config: encryption, compression, level, level6, unlimitedWindowSize, root
+invalid number: 396 respective config: encryption, compression, level, level1, root
+invalid number: 202 respective config: compression, level, level6, unlimitedWindowSize, root
+invalid number: 199 respective config: compression, level, level5, unlimitedWindowSize, disableCompressibilityTesting, root
+invalid number: 190 respective config: compression, level, level3, unlimitedWindowSize, root
+invalid number: 398 respective config: encryption, compression, level, level1, unlimitedWindowSize, root
+invalid number: 406 respective config: encryption, compression, level, level3, unlimitedWindowSize, root
+invalid number: 426 respective config: encryption, compression, level, level8, unlimitedWindowSize, root
+invalid number: 181 respective config: compression, level, level1, disableCompressibilityTesting, root
+invalid number: 417 respective config: encryption, compression, level, level6, disableCompressibilityTesting, root
+ConfigurationSampling done in 997 ms
+432
+encryption ::= (ε, 1) | (encryption, 1) Symbolkind: TERMINAL
+unlimitedWindowSize ::= (ε, 1) | (unlimitedWindowSize, 1) Symbolkind: TERMINAL
+disableCompressibilityTesting ::= (ε, 1) | (disableCompressibilityTesting, 1) Symbolkind: TERMINAL
+root ::= (encryption, 2)   (compression, 6)   (level, 9)   (unlimitedWindowSize, 2)   (disableCompressibilityTesting, 2) Symbolkind: NONTERMINAL
+compressionInvis ::= (ε, 1) Symbolkind: TERMINAL
+compression ::= (compressionBzip2, 1) | (compressionGzip, 1) | (compressionLzo, 1) | (compressionZpaq, 1) | (compressionLrzip, 1) | (compressionInvis, 1) Symbolkind: TERMINAL
+level ::= (level1, 1) | (level2, 1) | (level3, 1) | (level4, 1) | (level5, 1) | (level6, 1) | (level7, 1) | (level8, 1) | (level9, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global
 command: script ./learn_grammarBased_t3.a

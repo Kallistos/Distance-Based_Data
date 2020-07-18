@@ -8,15 +8,15 @@ from typing import List
 RUNS_FROM = 1
 RUNS_TO = 100
 CLUSTERS = [("eku", "i5"), ("kine", ""), ("zeus", ""), ("anywhere", "")]
-CASE_STUDIES = [("BerkeleyDBC", 1000),
-                ("LLVM", 1000),
-                ("lrzip", 1),
-                ("x264", 1000),
-                ("Dune", 1),
-                ("7z", 1),
-                ("Polly", 1000),
-                ("JavaGC", 1000),
-                ("VP9", 1000),
+CASE_STUDIES = [#("BerkeleyDBC", 1000),
+                #("LLVM", 1000),
+                #("lrzip", 1),
+                #("x264", 1000),
+                #("Dune", 1),
+                #("7z", 1),
+                #("Polly", 1000),
+                #("JavaGC", 1000),
+                #("VP9", 1000),
                 ("Hipacc", 1000)
                 ]
 
@@ -36,8 +36,6 @@ JOB_DIR = HOME + "Jobs/"
 JOB_FILE_PREFIX = "_jobs_"
 JOB_FILE_SUFFIX = ".txt"
 JOB_SCRIPT_PREDICTIONS = PREFIX + "runRandomHundredTimes.sh "
-JOB_SCRIPT_PREDICTIONS_SVR = PREFIX + "runSVRRandomHundredTimes.sh "
-JOB_SCRIPT_PREDICTIONS_FOREST_REGRESSOR = PREFIX + "runForestRegressorRandomHundredTimes.sh "
 JOB_SCRIPT_SAMPLING = PREFIX + "sampleRandomHundredTimes.sh "
 JOB_SCRIPT_FAILURE_RATE = PREFIX + "failureRateRandomHundredTimes.sh "
 

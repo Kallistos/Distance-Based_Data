@@ -7,7 +7,7 @@ Configs with too large deviation: 0
 2560 configurations loaded.
 command: binary random numConfigs:97 seed:92 fromFile:/scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/PerformancePredictions/Summary/BerkeleyDBC/allConfigurations.csv
 command: printconfigs ./sampledConfigurations_random_t2.csv
-ConfigurationSampling done in 112 ms
+ConfigurationSampling done in 113 ms
 command: clean-sampling
 command: clean-global
 command: script ./learn_random_t3.a

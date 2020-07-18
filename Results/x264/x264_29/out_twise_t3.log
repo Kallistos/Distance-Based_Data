@@ -7,6 +7,6 @@ Configs with too large deviation: 0
 1152 configurations loaded.
 command: binary twise t:3
 command: printconfigs ./sampledConfigurations_twise_t3.csv
-ConfigurationSampling done in 936 ms
+ConfigurationSampling done in 953 ms
 command: clean-sampling
 command: clean-global

@@ -7,7 +7,7 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary random numConfigs:18 seed:80 fromFile:/scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/PerformancePredictions/Summary/lrzip/allConfigurations.csv
 command: printconfigs ./sampledConfigurations_random_t1.csv
-ConfigurationSampling done in 22 ms
+ConfigurationSampling done in 23 ms
 command: clean-sampling
 command: clean-global
 command: script ./learn_random_t2.a
