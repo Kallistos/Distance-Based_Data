@@ -1,6 +1,6 @@
-script ./learn_grammarBased_t1SVR.a
+script ./learn_grammarBased_t1FR.a
 clean-global
-script ./learn_grammarBased_t2SVR.a
+script ./learn_grammarBased_t2FR.a
 clean-global
-script ./learn_grammarBased_t3SVR.a
+script ./learn_grammarBased_t3FR.a
 clean-global

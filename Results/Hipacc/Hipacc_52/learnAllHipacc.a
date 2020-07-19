@@ -1,6 +1,6 @@
-script ./learn_divDistBased_t1MLR.a
+script ./learn_grammarBased_t1FR.a
 clean-global
-script ./learn_divDistBased_t2MLR.a
+script ./learn_grammarBased_t2FR.a
 clean-global
-script ./learn_divDistBased_t3MLR.a
+script ./learn_grammarBased_t3FR.a
 clean-global
