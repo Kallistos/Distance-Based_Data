@@ -7,7 +7,7 @@ Configs with too large deviation: 0
 2560 configurations loaded.
 command: binary satoutput henard:false numConfigs:15 seed:40
 command: printconfigs ./sampledConfigurations_solverBased_t1.csv
-ConfigurationSampling done in 48 ms
+ConfigurationSampling done in 82 ms
 command: clean-sampling
 command: clean-global
 command: script ./learn_solverBased_t2.a

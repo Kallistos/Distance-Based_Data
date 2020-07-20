@@ -7,6 +7,6 @@ Configs with too large deviation: 0
 1152 configurations loaded.
 command: binary satoutput henard:true numConfigs:212 seed:34
 command: printconfigs ./sampledConfigurations_henard_t3.csv
-ConfigurationSampling done in 22536 ms
+ConfigurationSampling done in 23082 ms
 command: clean-sampling
 command: clean-global

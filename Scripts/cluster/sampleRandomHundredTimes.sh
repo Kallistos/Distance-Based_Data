@@ -60,10 +60,8 @@ createAFiles () {
           > ${file};
           echo "log ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))${LOG_SUFIX}" >> ${file};
           echo "solver z3" >> ${file}
-          if [ ${twCounter} = "1" ]; then
-            echo "vm ${path}FeatureModel.xml" >> ${file};
-            echo "all ${csvFile}" >> ${file};
-          fi
+          echo "vm ${path}FeatureModel.xml" >> ${file};
+          echo "all ${csvFile}" >> ${file};
           if [ "${SAMPLING_STRATEGY}" = "select-all-measurements true" ]; then
             echo "${SAMPLING_STRATEGY}" >> ${file};
           elif [ "${SAMPLING_STRATEGY}" = "binary twise" ]; then
@@ -125,7 +123,7 @@ if [ $# -eq 5 ]; then
       REPETITIONS=$5;
 fi
 #save output as samples
-FILE_NAME += "Samples"
+# FILE_NAME="${FILE_NAME}Samples"
 # Mono variables
 MONO_PATH="mono"
 

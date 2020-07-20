@@ -7,7 +7,19 @@ Configs with too large deviation: 0
 2560 configurations loaded.
 command: binary grammar-based numConfigs:15 seed:77
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
-ConfigurationSampling done in 202 ms
+ConfigurationSampling done in 209 ms
+2560
+HAVE_CRYPTO ::= (ε, 1) | (HAVE_CRYPTO, 1) Symbolkind: TERMINAL
+HAVE_HASH ::= (ε, 1) | (HAVE_HASH, 1) Symbolkind: TERMINAL
+HAVE_REPLICATION ::= (ε, 1) | (HAVE_REPLICATION, 1) Symbolkind: TERMINAL
+HAVE_VERIFY ::= (ε, 1) | (HAVE_VERIFY, 1) Symbolkind: TERMINAL
+HAVE_SEQUENCE ::= (ε, 1) | (HAVE_SEQUENCE, 1) Symbolkind: TERMINAL
+HAVE_STATISTICS ::= (ε, 1) | (HAVE_STATISTICS, 1) Symbolkind: TERMINAL
+DIAGNOSTIC ::= (ε, 1) | (DIAGNOSTIC, 1) Symbolkind: TERMINAL
+root ::= (HAVE_CRYPTO, 2)   (HAVE_HASH, 2)   (HAVE_REPLICATION, 2)   (HAVE_VERIFY, 2)   (HAVE_SEQUENCE, 2)   (HAVE_STATISTICS, 2)   (DIAGNOSTIC, 2)   (PAGESIZE, 5)   (CACHESIZE, 4) Symbolkind: NONTERMINAL
+PAGESIZE ::= (PS1K, 1) | (PS4K, 1) | (PS8K, 1) | (PS16K, 1) | (PS32K, 1) Symbolkind: TERMINAL
+CACHESIZE ::= (CS32MB, 1) | (CS16MB, 1) | (CS64MB, 1) | (CS512MB, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global
 command: script ./learn_grammarBased_t2.a

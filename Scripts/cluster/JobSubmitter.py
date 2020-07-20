@@ -36,8 +36,6 @@ JOB_DIR = HOME + "Jobs/"
 JOB_FILE_PREFIX = "_jobs_"
 JOB_FILE_SUFFIX = ".txt"
 JOB_SCRIPT_PREDICTIONS = PREFIX + "runRandomHundredTimes.sh "
-JOB_SCRIPT_PREDICTIONS_SVR = PREFIX + "runSVRRandomHundredTimes.sh "
-JOB_SCRIPT_PREDICTIONS_FOREST_REGRESSOR = PREFIX + "runForestRegressorRandomHundredTimes.sh "
 JOB_SCRIPT_SAMPLING = PREFIX + "sampleRandomHundredTimes.sh "
 JOB_SCRIPT_FAILURE_RATE = PREFIX + "failureRateRandomHundredTimes.sh "
 

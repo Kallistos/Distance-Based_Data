@@ -1,0 +1,6 @@
+script ./learn_grammarBased_t1FR.a
+clean-global
+script ./learn_grammarBased_t2FR.a
+clean-global
+script ./learn_grammarBased_t3FR.a
+clean-global

@@ -1,4 +1,2 @@
 Run 100 out of 100.
-mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/VP9/VP9_100/_learnAllSVR.a >> /dev/null;
-slurmstepd: error: *** JOB 155485 ON kine09 CANCELLED AT 2020-07-04T04:47:35 DUE TO TIME LIMIT ***
-slurmstepd: error: *** JOB 155553 ON kine09 CANCELLED AT 2020-07-04T06:52:05 DUE TO TIME LIMIT ***
+mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/Hipacc/Hipacc_100/learnAllHipacc.a >> /dev/null;

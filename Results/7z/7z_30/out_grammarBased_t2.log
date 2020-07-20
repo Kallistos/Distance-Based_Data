@@ -6,7 +6,18 @@ Configs with too large deviation: 0
 68640 configurations loaded.
 command: binary grammar-based numConfigs:600 seed:30
 command: printconfigs ./sampledConfigurations_grammarBased_t2.csv
-ConfigurationSampling done in 5344 ms
+ConfigurationSampling done in 5239 ms
+68640
+filterOff ::= (ε, 1) | (filterOff, 1) Symbolkind: TERMINAL
+HeaderCompressionOff ::= (ε, 1) | (HeaderCompressionOff, 1) Symbolkind: TERMINAL
+mtOff ::= (ε, 1) | (mtOff, 1) Symbolkind: TERMINAL
+tmOff ::= (ε, 1) | (tmOff, 1) Symbolkind: TERMINAL
+root ::= (filterOff, 2)   (HeaderCompressionOff, 2)   (mtOff, 2)   (CompressionMethod, 5)   (tmOff, 2)   (Files, 11)   (BlockSize, 13)   (x, 6) Symbolkind: NONTERMINAL
+CompressionMethod ::= (LZMA, 1) | (LZMA2, 1) | (PPMd, 1) | (BZip2, 1) | (Deflate, 1) Symbolkind: TERMINAL
+Files ::= (Files_0, 1) | (Files_10, 1) | (Files_20, 1) | (Files_30, 1) | (Files_40, 1) | (Files_50, 1) | (Files_60, 1) | (Files_70, 1) | (Files_80, 1) | (Files_90, 1) | (Files_100, 1) Symbolkind: TERMINAL
+BlockSize ::= (BlockSize_1, 1) | (BlockSize_2, 1) | (BlockSize_4, 1) | (BlockSize_8, 1) | (BlockSize_16, 1) | (BlockSize_32, 1) | (BlockSize_64, 1) | (BlockSize_128, 1) | (BlockSize_256, 1) | (BlockSize_512, 1) | (BlockSize_1024, 1) | (BlockSize_2048, 1) | (BlockSize_4096, 1) Symbolkind: TERMINAL
+x ::= (x_0, 1) | (x_2, 1) | (x_4, 1) | (x_6, 1) | (x_8, 1) | (x_10, 1) Symbolkind: TERMINAL
+
 command: clean-sampling
 command: clean-global
 command: script ./learn_grammarBased_t3.a

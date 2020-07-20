@@ -2,15 +2,15 @@
 
 
 case_studies = ["BerkeleyDBC",
-                "7z",
-                "Dune",
-                "Hipacc",
-                "JavaGC",
-                "LLVM",
-                "Polly",
-                "VP9",
-                "lrzip",
-                "x264",
+                # "7z",
+                # "Dune",
+                # "Hipacc",
+                # "JavaGC",
+                # "LLVM",
+                # "Polly",
+                # "VP9",
+                # "lrzip",
+                # "x264",
                 ]
 
 all_config_path = "../../SupplementaryWebsite/MeasuredPerformanceValues/"
@@ -19,7 +19,7 @@ start_rand = 1
 end_rand = 100
 
 file_name_prefix = "sampledConfigurations_"
-file_name_strategies = [# "grammarBased",
+file_name_strategies = ["grammarBased",
                         "divDistBased",
                         "henard",
                         "random",
@@ -87,7 +87,7 @@ def parse_valid_configurations(case_study):
             else:
                 configuration_binary += '0'
 
-        print(configuration_binary)
+        # print(configuration_binary)
         configurations[configuration_binary] = index
         index += 1
     print(index)
@@ -172,6 +172,91 @@ def produce_median_indicies(case_study, strategy):
             dict_dataframe[case_study]['strategy'].extend([t_factor] * len(samples_idx))
 
 
+def plot_dist_samples(case_study, strategy):
+    # import pandas as pd
+    import seaborn as sns
+    # import numpy as np
+    import matplotlib.pyplot as plt
+    valid_configurations = configurations_in_study[case_study]
+    sns.set(style="whitegrid")
+    for i, sample_set in zip(range(1, 101), t1_sampling_sets[case_study][strategy]):
+        expanded_sample_set = []
+        for j in sample_set:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(j - len(valid_configurations))
+            expanded_sample_set.append(j + len(valid_configurations))
+        output_dir = 'plots/' + case_study + '/t1/' + strategy + '/' + strategy + '_' + str(i)
+        mkdir_p(output_dir)
+        plt.figure()
+        sns.distplot(sample_set, hist=False, rug=True, rug_kws={'height': .5}, kde_kws={'cut': 0})
+        plt.xlim(0, len(valid_configurations))
+        plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
+        plt.close()
+    # for i, sample_set in zip(range(1, 101), t2_sampling_sets[case_study][strategy]):
+    #     expanded_sample_set = []
+    #     for j in sample_set:
+    #         expanded_sample_set.append(j)
+    #         expanded_sample_set.append(j - len(valid_configurations))
+    #         expanded_sample_set.append(j + len(valid_configurations))
+    #     output_dir = 'plots/' + case_study + '/t2/' + strategy + '/' + strategy + '_' + str(i)
+    #     mkdir_p(output_dir)
+    #     plt.figure()
+    #     sns.distplot(expanded_sample_set, hist=False, rug=True, rug_kws={'height': .5})
+    #     plt.xlim(0, len(valid_configurations))
+    #     plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
+    #     plt.close()
+    # for i, sample_set in zip(range(1, 101), t3_sampling_sets[case_study][strategy]):
+    #     output_dir = 'plots/' + case_study + '/t3/' + strategy + '/' + strategy + '_' + str(i)
+    #     mkdir_p(output_dir)
+    #     plt.figure()
+    #     sns.distplot(sample_set, hist=False, rug=True, rug_kws={'height': .5})
+    #     plt.xlim(0, len(valid_configurations))
+    #     plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
+    #     plt.close()
+
+
+def plot_dist_samples_combined():
+    # import pandas as pd
+    import seaborn as sns
+    # import numpy as np
+    import matplotlib.pyplot as plt
+    for case_study in case_studies:
+        valid_configurations = configurations_in_study[case_study]
+        sns.set(style="whitegrid")
+        for sample_sets in t1_sampling_sets[case_study]:
+            for i in range(1, 11):
+                plt.figure()
+                output_dir = 'plots/' + case_study + '/t1/' + '/combined' + '_' + str(i)
+                mkdir_p(output_dir)
+                for strategy in file_name_strategies:
+                    print(sample_sets)
+                    sample_set = sample_sets[strategy]
+                    expanded_sample_set = []
+                    for j in sample_set:
+                        expanded_sample_set.append(j)
+                        expanded_sample_set.append(j - len(valid_configurations))
+                        expanded_sample_set.append(j + len(valid_configurations))
+                    sns.distplot(sample_set, hist=False, rug=True, rug_kws={'height': .5}, kde_kws={'cut': 0})
+                plt.xlim(0, len(valid_configurations))
+                plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
+                plt.close()
+
+
+def mkdir_p(mypath):
+    '''Creates a directory. equivalent to using mkdir -p on the command line'''
+
+    from errno import EEXIST
+    from os import makedirs, path
+
+    try:
+        makedirs(mypath)
+    except OSError as exc:
+        if exc.errno == EEXIST and path.isdir(mypath):
+            pass
+        else:
+            raise
+
+
 def seaborn_plot():
     import pandas as pd
     import seaborn as sns
@@ -184,7 +269,7 @@ def seaborn_plot():
         x = np.array(range(-10, xmax, 1))
         df = pd.DataFrame(data=dict_dataframe[study])
         df.to_csv('dataframe' + study + '.csv')
-        chart = sns.relplot(x='x', y='y', data=df, hue='strategy', col='t_factor', kind='line', markers=True, height=15, aspect=1)
+        chart = sns.distplot(df['y'], hue='strategy', col='t_factor', kind='line', markers=True, height=15, aspect=1)
         for ax in chart.axes.flat:
             # ax.set_xticklabels(ax.get_yticklabels(), rotation=30)
             ax.xaxis.grid(True)
@@ -218,8 +303,10 @@ def start():
             t2_sampling_sets[study][strategy] = []
             t3_sampling_sets[study][strategy] = []
             get_sampling_indices(study, strategy)
-            produce_median_indicies(study, strategy)
-    seaborn_plot()
+            # plot_dist_samples(study, strategy)
+            # produce_median_indicies(study, strategy)
+    plot_dist_samples_combined()
+    # seaborn_plot()
 
 
 if __name__ == "__main__":
