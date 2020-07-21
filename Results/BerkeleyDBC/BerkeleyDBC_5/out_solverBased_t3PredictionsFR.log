@@ -6,13 +6,13 @@ command: all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/Measure
 Configs with too large deviation: 0
 2560 configurations loaded.
 command: nfp Performance
-command: setsampleset /scratch/kallistos/Distance-Based_Data/Results/BerkeleyDBC/BerkeleyDBC_40/sampledConfigurations_solverBased_t3.csv
+command: setsampleset /scratch/kallistos/Distance-Based_Data/Results/BerkeleyDBC/BerkeleyDBC_5/sampledConfigurations_solverBased_t3.csv
 command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin
 command: learn-python-opt RandomForestRegressor
 Learning: NumberOfConfigurationsLearning:363 NumberOfConfigurationsValidation:363
 Starting Prediction
-Optimal parameters random_state=3;n_estimators=18;max_features=auto;
+Optimal parameters random_state=1;n_estimators=12;max_features=auto;
 Starting Prediction
-Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/BerkeleyDBC/BerkeleyDBC_40/PreVal_RandomForestRegressor_BerkeleyDbC__.csv
-Error rate: 0.47034188288379
+Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/BerkeleyDBC/BerkeleyDBC_5/PreVal_RandomForestRegressor_BerkeleyDbC__.csv
+Error rate: 0.0741983793142873
 command: clean-global

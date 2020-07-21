@@ -1,6 +1,6 @@
-script ./learn_divDistBased_t1SVR.a
+script ./learn_solverBased_t1FR.a
 clean-global
-script ./learn_divDistBased_t2SVR.a
+script ./learn_solverBased_t2FR.a
 clean-global
-script ./learn_divDistBased_t3SVR.a
+script ./learn_solverBased_t3FR.a
 clean-global
