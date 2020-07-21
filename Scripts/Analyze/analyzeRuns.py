@@ -378,6 +378,7 @@ def main() -> None:
             # Write performance data into a csv file
             performance_data_file = open(original_directory + case_study + os.path.sep + ALL_RESULTS_PREFIX +
                                          PERFORMANCE_PREFIX + file.replace('out_', '') + OTHER_FILE_SUFFIX, 'w')
+            performance_data_file.write("Perf\n")
             for performance_information in performance_statistic[case_study][file]:
                 performance_data_file.write(str(performance_information) + "\n")
             performance_data_file.close()

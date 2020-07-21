@@ -19,7 +19,7 @@ import subprocess
 SEPARATION_SIGN = ","
 ERROR_FILE_PREFIX = "all_error_"
 PERFORMANCE_FILE_PREFIX = "all_perf_"
-ML_PREFIXES = ["Predictions_", "PredictionsSVR_", "PredictionsForestRegressor_"]
+ML_PREFIXES = ["", "Predictions_", "PredictionsSVR_", "PredictionsForestRegressor_"]
 ERROR_FILE_SUFIX = ".txt"
 LOG_FILE_PREFIX = "out_"
 LOG_FILE_SUFIX = ".log"
@@ -98,7 +98,9 @@ def compute_mean_error(file_path: str) -> Tuple[float, List[float]]:
         file.readline()
         for line in file:
             count += 1
-            value = float(line.split(CSV_SEPARATOR)[1])
+            line = line.replace("\n", "")
+            split_line = line.split(CSV_SEPARATOR)
+            value = float(split_line[len(split_line) - 1])
             avg_error += value
             all_values.append(value)
         avg_error /= count
@@ -151,6 +153,24 @@ def add_new_line(list_of_strings: List[str]) -> List[str]:
     return new_list
 
 
+def format_time(time: int) -> str:
+    """
+    Formats the given time in miliseconds and returns a string.
+    """
+    hours = int(time / 3600000)
+    minutes = int(time % 3600000 / 60000)
+    seconds = int(time % 60000 / 1000)
+    millis = time % 1000
+    if hours >= 1:
+        return str(hours) + "h " + str(minutes).rjust(2, '0') + "m"
+    elif minutes >= 2:
+        return str(minutes) + "m " + str(seconds).rjust(2, '0') + "s"
+    elif minutes == 0 and seconds == 0:
+        return "$<$1s"
+    else:
+        return str(minutes * 60 + seconds) + "." + str(int(millis / 10)).rjust(2, '0') + "s"
+
+
 def gather_information(input_directories: List[str], types_to_add: List[str]) -> Tuple[Dict[Any, Any], Dict[Any, Any]]:
     """
     Gathers information from all files in the input_directories by only considering the sampling strategies given in
@@ -170,13 +190,16 @@ def gather_information(input_directories: List[str], types_to_add: List[str]) ->
         for ml_algorithm in ML_PREFIXES:
             result[case_study][ml_algorithm] = {}
             all_results[case_study][ml_algorithm] = {}
+            prefix = ERROR_FILE_PREFIX
+            if ml_algorithm == "":
+                prefix = PERFORMANCE_FILE_PREFIX
             for type_to_add in types_to_add:
                 result[case_study][ml_algorithm][type_to_add] = {}
                 all_results[case_study][ml_algorithm][type_to_add] = {}
                 for t in T_PARAMETER:
                     # The t-wise error rate has to be read from the .log-file
                     file_path = os.path.join(inputDirectory,
-                                             ERROR_FILE_PREFIX + ml_algorithm + type_to_add + FILE_NAME_SEPARATOR +
+                                             prefix + ml_algorithm + type_to_add + FILE_NAME_SEPARATOR +
                                              "t" + str(t) + ERROR_FILE_SUFIX)
                     avg_value, all_values = compute_mean_error(file_path)
                     result[case_study][ml_algorithm][type_to_add][t] = avg_value
@@ -385,8 +408,11 @@ def write_table_to_file(output_dir: str, labels_of_types: List[str], types_to_ad
                     if math.isnan(type_information[case_study_directory][ml_algorithm][type_to_investigate][t]):
                         result_to_print = "--"
                     else:
-                        result_to_print = str(round_error(type_information[case_study_directory][ml_algorithm][type_to_investigate][t])) + \
-                                          PERCENT
+                        if ml_algorithm == "":
+                            result_to_print = format_time(type_information[case_study_directory][ml_algorithm][type_to_investigate][t])
+                        else:
+                            result_to_print = str(round_error(type_information[case_study_directory][ml_algorithm][type_to_investigate][t])) + \
+                                            PERCENT
 
                     if ranking is None or ranking[case_study_directory][ml_algorithm][t][types_to_add.index(type_to_investigate)] > 1:
                         case_study_line += "&" + result_to_print
@@ -401,7 +427,7 @@ def write_table_to_file(output_dir: str, labels_of_types: List[str], types_to_ad
         # Remove the last space, as it is not needed
         case_study_lines = case_study_lines[0:len(case_study_lines) - 1]
 
-        if means is not None and mean_ranking is not None:
+        if means is not None and mean_ranking is not None and ml_algorithm != "":
             # Add a line for the mean values and their ranking
             # caseStudyLines.append(meanSeparator)
             mean_line = "Mean "
