@@ -10,7 +10,7 @@ import re
 from typing import Dict, List, Any, Tuple
 
 TYPES = ["grammarBased", "random", "henard", "divDistBased", "twise", "solverBased"]
-CASE_STUDIES = ["7z", "JavaGC", "Polly"]#, "BerkeleyDBC", "Dune", "Hipacc", "JavaGC", "LLVM", "lrzip", "Polly", "VP9", "x264"]
+CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "JavaGC", "LLVM", "lrzip", "Polly", "VP9", "x264"]
 # CASE_STUDIES = ["7z", "BerkeleyDBC", "Dune", "Hipacc", "LLVM", "lrzip", "Polly"]
 # CASE_STUDIES = ["lrzip"]
 
@@ -34,6 +34,7 @@ TOTAL = "total"
 SAMPLED_CONFIGURATIONS_STATS_SUFFIX = "_stat"
 PERCENT = "%"
 
+FILE_STREAM = open("/home/thoril/erroneous.txt", 'w')
 
 def print_usage() -> None:
     """
@@ -314,6 +315,11 @@ def main() -> None:
                         optimal_parameters[file_type] = {}
                     (optimal_parameter, error) = analyze_learning_log_file(
                         run_directory + case_study + SEPARATOR + directory + SEPARATOR + file)
+
+                    if error > 1000 and "ForestRegressor" not in file:
+                        FILE_STREAM.write(case_study + os.sep + directory + os.sep + file + "\n")
+                        continue
+
                     add_to_sum_dict(average_values[file_type], file_name, error)
                     add_to_dictionary(run_statistic[file_type], file_name, number_run, error)
 
@@ -333,7 +339,6 @@ def main() -> None:
                 standard_deviation[mode][file] = 0
 
                 # Save the error rates in the following file (needed for box-plots)
-                mid_file_name = file[len(SPL_CONQUEROR_PREFIX):len(file) - len(suffix)]
                 directory = original_directory + case_study
                 if not os.path.exists(directory):
                     os.makedirs(directory)
@@ -382,6 +387,8 @@ def main() -> None:
             for performance_information in performance_statistic[case_study][file]:
                 performance_data_file.write(str(performance_information) + "\n")
             performance_data_file.close()
+
+    FILE_STREAM.close()
 
 
 if "__main__" == __name__:
