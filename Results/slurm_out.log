@@ -1,2 +1,1 @@
-Run 100 out of 100.
-mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/Hipacc/Hipacc_100/learnAllHipacc.a >> /dev/null;
+bash: /scratch/kallistos/Distance-Based_Data/Scripts/cluster/analyzeMLRPredictionModels.sh: Permission denied

@@ -28,14 +28,15 @@ PREFIX = HOME + "Distance-Based_Data/Scripts/cluster/"
 
 SBATCH = "sbatch"
 # --exclusive --exclude='chimaira[13-17]'
-SBATCH_OPTIONS = " -n 1 -c 1 --mem=20000M --time='24:00:00' " \
-                 "--output=/scratch/kallistos/Distance-Based_Data/Results/slurm_out.log "
+SBATCH_OPTIONS = " -n 1 -c 1 --mem=15000M --time='24:00:00' " \
+                 "--output=/scratch/kallistos/Distance-Based_Data/Results/slurm_out_SVR.log "
 SBATCH_SCRIPT = PREFIX + "runDistributionAware.sh"
 
 JOB_DIR = HOME + "Jobs/"
 JOB_FILE_PREFIX = "_jobs_"
 JOB_FILE_SUFFIX = ".txt"
 JOB_SCRIPT_PREDICTIONS = PREFIX + "runRandomHundredTimes.sh "
+JOB_SCRIPT_EVALUATIONS = PREFIX + "analyzeMLRPredictionModels.sh "
 JOB_SCRIPT_SAMPLING = PREFIX + "sampleRandomHundredTimes.sh "
 JOB_SCRIPT_FAILURE_RATE = PREFIX + "failureRateRandomHundredTimes.sh "
 
@@ -109,6 +110,7 @@ def main():
     predicting = str(sys.argv[3]) == "predicting"
     predictingSVR = str(sys.argv[3]) == "predictingSVR"
     predictingFR = str(sys.argv[3]) == "predictingFR"
+    evaluateMLR = str(sys.argv[3]) == "evaluateMLR"
     if sampling:
         SBATCH_OPTIONS = SBATCH_OPTIONS + " --exclusive "
         for caseStudy in CASE_STUDIES:
@@ -130,16 +132,24 @@ def main():
                 jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "MLR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif predictingSVR:
+        SBATCH_OPTIONS = SBATCH_OPTIONS + " --exclusive "
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
                 jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "SVR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif predictingFR:
+        SBATCH_OPTIONS = SBATCH_OPTIONS + " --exclusive "
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
                 jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "FR" + " " + str(run) + " " + str(run)
+                jobs.append(jobString)
+    elif evaluateMLR:
+        for caseStudy in CASE_STUDIES:
+            for run in range(RUNS_FROM, RUNS_TO + 1):
+                jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
+                jobString += JOB_SCRIPT_EVALUATIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     else:
         raise KeyError("The operation " + sys.argv[3] + " is not allowed!")

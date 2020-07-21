@@ -1,6 +1,6 @@
-script ./learn_grammarBased_t1FR.a
+script ./learn_random_t1FR.a
 clean-global
-script ./learn_grammarBased_t2FR.a
+script ./learn_random_t2FR.a
 clean-global
-script ./learn_grammarBased_t3FR.a
+script ./learn_random_t3FR.a
 clean-global
