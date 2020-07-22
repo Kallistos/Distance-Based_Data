@@ -172,6 +172,39 @@ def produce_median_indicies(case_study, strategy):
             dict_dataframe[case_study]['strategy'].extend([t_factor] * len(samples_idx))
 
 
+def produce_lineplot_values(case_study, strategy):
+    import pandas as pd
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    sampling_sets_set = []
+    sampling_sets_set.append(t1_sampling_sets[case_study][strategy])
+    sampling_sets_set.append(t2_sampling_sets[case_study][strategy])
+    sampling_sets_set.append(t3_sampling_sets[case_study][strategy])
+
+    if len(sampling_sets_set[0]) != len(sampling_sets_set[1]) or len(sampling_sets_set[0]) != len(sampling_sets_set[2]) or len(sampling_sets_set[0]) < 1:
+        raise ValueError('not all seeds got sample sets')
+    for sampling_set, t_factor in zip(sampling_sets_set, ['t1', 't2', 't3']):
+        length = len(sampling_set[0])
+        length_val = len(configurations_in_study[case_study])
+        steps = length_val / length
+        print('length:', length, 'length val:', length_val, 'steps:', steps)
+        x_values = []
+        for index_set in sampling_set:
+            for index in index_set:
+                x_values.append(index)
+        y_values = []
+        for i in x_values:
+            y_values.append(x_values.count(i) / 100.0)
+
+        sns.set(style="whitegrid")
+        plt.figure()
+        pd_dict = {'x': x_values, 'y': y_values}
+        df = pd.DataFrame(data=pd_dict)
+        sns.lineplot(x="x", y="y", data=df)
+        plt.savefig('tmpTest' + strategy + '_' + case_study + t_factor + '.pdf')
+        plt.close()
+
+
 def plot_dist_samples(case_study, strategy):
     # import pandas as pd
     import seaborn as sns
@@ -213,6 +246,63 @@ def plot_dist_samples(case_study, strategy):
     #     plt.xlim(0, len(valid_configurations))
     #     plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
     #     plt.close()
+
+
+def plot_combined(case_study):
+    # import pandas as pd
+    import seaborn as sns
+    # import numpy as np
+    import matplotlib.pyplot as plt
+    valid_configurations = configurations_in_study[case_study]
+    sns.set(style="whitegrid")
+    for i, sample_setGB, sample_setDDB, sample_setH, sample_setR, sample_setS, sample_setT in zip(range(1, 101), t1_sampling_sets[case_study]["grammarBased"], t1_sampling_sets[case_study]["divDistBased"], t1_sampling_sets[case_study]['henard'], t1_sampling_sets[case_study]['random'], t1_sampling_sets[case_study]['solverBased'], t1_sampling_sets[case_study]['twise']):
+        output_dir = 'plots/' + case_study + '/t1/' + '/Seed' + '_' + str(i)
+        mkdir_p(output_dir)
+        plt.figure()
+        expanded_sample_set = []
+        for j in sample_setGB:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(-j)
+            expanded_sample_set.append(-j + 2 * len(valid_configurations))
+        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="grammar")
+        expanded_sample_set = []
+        for j in sample_setDDB:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(-j)
+            expanded_sample_set.append(-j + 2 * len(valid_configurations))
+        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="divDist")
+        expanded_sample_set = []
+        for j in sample_setH:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(-j)
+            expanded_sample_set.append(-j + 2 * len(valid_configurations))
+        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="henard")
+        expanded_sample_set = []
+        for j in sample_setR:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(-j)
+            expanded_sample_set.append(-j + 2 * len(valid_configurations))
+        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="random")
+        expanded_sample_set = []
+        for j in sample_setT:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(-j)
+            expanded_sample_set.append(-j + 2 * len(valid_configurations))
+        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="twise")
+        expanded_sample_set = []
+        for j in sample_setS:
+            expanded_sample_set.append(j)
+            expanded_sample_set.append(-j)
+            expanded_sample_set.append(-j + 2 * len(valid_configurations))
+        g = sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="solver")
+        g.legend(frameon=False, loc='upper right', ncol=2)
+        plt.xlim(0, len(valid_configurations))
+        # ytikcs
+        locs, labels = plt.yticks()
+        plt.yticks(locs, map(lambda x: "%.4f" % x, locs * 100))
+        plt.ylabel("[%]")
+        plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
+        plt.close()
 
 
 def plot_dist_samples_combined():
@@ -294,18 +384,19 @@ def start():
         else:
             configurations = parse_valid_configurations(study)
         configurations_in_study[study] = configurations
+        t1_sampling_sets[study] = {}
+        t2_sampling_sets[study] = {}
+        t3_sampling_sets[study] = {}
         for strategy in file_name_strategies:
-            t1_sampling_sets[study] = {}
-            t2_sampling_sets[study] = {}
-            t3_sampling_sets[study] = {}
 
             t1_sampling_sets[study][strategy] = []
             t2_sampling_sets[study][strategy] = []
             t3_sampling_sets[study][strategy] = []
             get_sampling_indices(study, strategy)
             # plot_dist_samples(study, strategy)
+            produce_lineplot_values(study, strategy)
             # produce_median_indicies(study, strategy)
-    plot_dist_samples_combined()
+        # plot_combined(study)
     # seaborn_plot()
 
 

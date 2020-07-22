@@ -8,8 +8,3 @@ Configs with too large deviation: 0
 13485 configurations loaded.
 command: binary satoutput henard:true numConfigs:4601 seed:89
 command: printconfigs ./sampledConfigurations_henard_t3.csv
-ConfigurationSampling done in 128297488 ms
-command: clean-sampling
-command: clean-global
-command: script ./learn_solverBased_t3ForestRegressor.a
-command: log ./out_solverBased_t3PredictionsForestRegressor.log

@@ -19,7 +19,7 @@ import subprocess
 SEPARATION_SIGN = ","
 ERROR_FILE_PREFIX = "all_error_"
 PERFORMANCE_FILE_PREFIX = "all_perf_"
-ML_PREFIXES = ["", "Predictions_", "PredictionsSVR_", "PredictionsForestRegressor_"]
+ML_PREFIXES = [""]#, "Predictions_", "PredictionsSVR_", "PredictionsForestRegressor_"]
 ERROR_FILE_SUFIX = ".txt"
 LOG_FILE_PREFIX = "out_"
 LOG_FILE_SUFIX = ".log"
@@ -35,8 +35,8 @@ BEST_FORMAT_SUFIX = "} "
 SECOND_FORMAT_PREFIX = "{\\color{Blue}\\underline{"
 SECOND_FORMAT_SUFIX = "}} "
 
-CASE_STUDY_MAPPING = {"7z": "7z", "JavaGC": "JavaGC", "Polly": "Polly"}#, "BerkeleyDBC": "BDB-C", "Dune": "Dune",
-                      #"Hipacc": "Hipacc", "VP9": "VP9"}
+CASE_STUDY_MAPPING = {"7z": "7z", "JavaGC": "JavaGC", "Polly": "Polly", "BerkeleyDBC": "BDB-C", "Dune": "Dune",
+                      "Hipacc": "Hipacc", "VP9": "VP9", "LLVM": "LLVM", "lrzip": "lrzip", "x264": "x264"}
 
 EXCLUDED_DIRECTORIES = ["SinglePlots"]  # , "VP9_disc", "JavaGC_disc", "Hipacc_disc", "Polly_disc"]
 FIRST_COLUMN_FORMAT = "e"
