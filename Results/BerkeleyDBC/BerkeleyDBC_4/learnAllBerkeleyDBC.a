@@ -1,6 +1,6 @@
-script ./learn_twise_t1FR.a
+script ./learn_grammarBased_t1.a
 clean-global
-script ./learn_twise_t2FR.a
+script ./learn_grammarBased_t2.a
 clean-global
-script ./learn_twise_t3FR.a
+script ./learn_grammarBased_t3.a
 clean-global

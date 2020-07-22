@@ -11,3 +11,6 @@ Learning: NumberOfConfigurationsLearning:3893 NumberOfConfigurationsValidation:3
 Starting Prediction
 Optimal parameters tol=0.5;shrinking=True;gamma=auto;epsilon=0.1;coef0=2;C=5;
 Starting Prediction
+Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/VP9/VP9_65/PreVal_SVR_FeatureModel__.csv
+Error rate: 0.533518424129794
+command: clean-global
