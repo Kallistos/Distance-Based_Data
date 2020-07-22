@@ -11,10 +11,10 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt RandomForestRegressor
 Learning: NumberOfConfigurationsLearning:12 NumberOfConfigurationsValidation:12
 Starting Prediction
-Optimal parameters random_state=2;n_estimators=20;max_features=auto;
+Optimal parameters random_state=2;n_estimators=18;max_features=auto;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/x264/x264_21/PreVal_RandomForestRegressor_H264__.csv
-Error rate: 0.205493310152513
+Error rate: 0.200072879927246
 command: clean-global
 command: script ./learn_twise_t2FR.a
 command: log ./out_twise_t2PredictionsFR.log
