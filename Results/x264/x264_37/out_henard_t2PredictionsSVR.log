@@ -11,10 +11,10 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt SVR
 Learning: NumberOfConfigurationsLearning:65 NumberOfConfigurationsValidation:65
 Starting Prediction
-Optimal parameters tol=0.2;shrinking=False;gamma=auto;epsilon=0.3;coef0=2;C=5;
+Optimal parameters tol=0.5;shrinking=False;gamma=auto;epsilon=0.3;coef0=2;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/x264/x264_37/PreVal_SVR_H264__.csv
-Error rate: 0.330444677660309
+Error rate: 0.330448096369339
 command: clean-global
 command: script ./learn_henard_t3SVR.a
 command: log ./out_henard_t3PredictionsSVR.log

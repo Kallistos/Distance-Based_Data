@@ -3,3 +3,18 @@ command: solver z3
 command: vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/x264/FeatureModel.xml
 Warning: Variability model contains outdated notation. Children nodes will no longer have effect on the model. Instead use the parent node to describe the parent of an configuration option. You can also use the converter providedby the Variability Model GUI in export>convert legacy model.
 command: all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/x264/measurements.xml
+Configs with too large deviation: 0
+1152 configurations loaded.
+command: nfp Performance
+command: setsampleset /scratch/kallistos/Distance-Based_Data/Results/x264/x264_85/sampledConfigurations_random_t2.csv
+command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin
+command: learn-python-opt SVR
+Learning: NumberOfConfigurationsLearning:65 NumberOfConfigurationsValidation:65
+Starting Prediction
+Optimal parameters tol=0.1;shrinking=False;gamma=auto;epsilon=0.1;coef0=2;C=2;
+Starting Prediction
+Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/x264/x264_85/PreVal_SVR_H264__.csv
+Error rate: 0.326074913879171
+command: clean-global
+command: script ./learn_random_t3SVR.a
+command: log ./out_random_t3PredictionsSVR.log

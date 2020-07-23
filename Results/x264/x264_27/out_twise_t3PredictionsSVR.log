@@ -11,8 +11,8 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt SVR
 Learning: NumberOfConfigurationsLearning:212 NumberOfConfigurationsValidation:212
 Starting Prediction
-Optimal parameters tol=0.05;shrinking=True;gamma=auto;epsilon=0.3;coef0=0;C=5;
+Optimal parameters tol=0.1;shrinking=True;gamma=auto;epsilon=0.1;coef0=1;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/x264/x264_27/PreVal_SVR_H264__.csv
-Error rate: 0.306397543298327
+Error rate: 0.306386660929206
 command: clean-global
