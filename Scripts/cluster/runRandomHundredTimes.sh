@@ -69,7 +69,7 @@ createAFiles () {
 	    echo "define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin" >> ${file};
             echo "learn-python-opt SVR" >> ${file};
           fi
-          if [ ${ML_TYPE} = "FR" ]; then
+          if [ ${ML_TYPE} = "ForestRegressor" ]; then
 	    echo "define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin" >> ${file};
             echo "learn-python-opt RandomForestRegressor" >> ${file};
           fi
@@ -150,7 +150,8 @@ for i in `seq ${BEGIN_AT} ${REPETITIONS}`; do
 
         if [ "${DRY_RUN}" = false ]; then
           echo "${MONO_PATH} ${SPL_CONQUEROR_PATH} ${currentTmp}${SUPER_SCRIPT_NAME} >> /dev/null;";
-          ${MONO_PATH} ${SPL_CONQUEROR_PATH} ${currentTmp}${SUPER_SCRIPT_NAME} >> /dev/null;
+          ${MONO_PATH} ${SPL_CONQUEROR_PATH} ${currentTmp}${SUPER_SCRIPT_NAME};
+	 # >> /dev/null;
         fi
 
         if [ $? -ne 0 ]

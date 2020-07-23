@@ -1,8 +1,5 @@
-log ./out_twise_t1Predictions.log
-solver z3
+log ./out_twise_t1PredictionsMLR.log
 vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/Dune/FeatureModel.xml
 all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/Dune/measurements.xml
 nfp Performance
-setsampleset /scratch/kallistos/Distance-Based_Data/Results/Dune/Dune_74/sampledConfigurations_twise_t1.csv
-learn-splconqueror-opt abortError=[1] minImprovementPerRound=[0.1,0.2,0.5] lossFunction=[RELATIVE] quadraticFunctionSupport=[True,False] learn_logFunction=[True,False] learn_asymFunction=[True,False] learn_ratioFunction=[True,False] withHierarchy=[False] useBackward=[False]
-clean-sampling
+evaluate-model ./out_twise_t1Predictions.log_wrong_result

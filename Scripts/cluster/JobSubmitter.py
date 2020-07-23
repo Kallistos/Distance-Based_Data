@@ -132,18 +132,16 @@ def main():
                 jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "MLR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif predictingSVR:
-        SBATCH_OPTIONS = SBATCH_OPTIONS + " --exclusive "
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
                 jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "SVR" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif predictingFR:
-        SBATCH_OPTIONS = SBATCH_OPTIONS + " --exclusive "
         for caseStudy in CASE_STUDIES:
             for run in range(RUNS_FROM, RUNS_TO + 1):
                 jobString = "export LD_LIBRARY_PATH=/scratch/kallistos/:$LD_LIBRARY_PATH && "
-                jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "FR" + " " + str(run) + " " + str(run)
+                jobString += JOB_SCRIPT_PREDICTIONS + caseStudy[0] + " " + str(caseStudy[1]) + " " + type + " " + "ForestRegressor" + " " + str(run) + " " + str(run)
                 jobs.append(jobString)
     elif evaluateMLR:
         for caseStudy in CASE_STUDIES:

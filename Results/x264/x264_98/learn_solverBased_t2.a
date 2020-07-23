@@ -1,7 +1,5 @@
-log ./out_solverBased_t2.log
-solver z3
+log ./out_solverBased_t2PredictionsMLR.log
 vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/x264/FeatureModel.xml
 all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/x264/measurements.xml
-binary satoutput henard:false numConfigs:65 seed:98 
-printconfigs ./sampledConfigurations_solverBased_t2.csv
-clean-sampling
+nfp Performance
+evaluate-model ./out_solverBased_t2Predictions.log_wrong_result
