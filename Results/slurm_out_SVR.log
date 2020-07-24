@@ -1,4 +1,5 @@
-Run 100 out of 100.
-mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/VP9/VP9_100/learnAllVP9.a >> /dev/null;
-command: script ./learn_random_t1SVR.a
-command: log ./out_random_t1PredictionsSVR.log
+Run 99 out of 99.
+mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/VP9/VP9_99/learnAllVP9.a >> /dev/null;
+command: script ./learn_solverBased_t1ForestRegressor.a
+command: log ./out_solverBased_t1PredictionsForestRegressor.log
+og

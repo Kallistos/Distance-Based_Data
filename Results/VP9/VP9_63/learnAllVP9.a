@@ -1,6 +1,6 @@
-script ./learn_random_t1SVR.a
+script ./learn_solverBased_t1ForestRegressor.a
 clean-global
-script ./learn_random_t2SVR.a
+script ./learn_solverBased_t2ForestRegressor.a
 clean-global
-script ./learn_random_t3SVR.a
+script ./learn_solverBased_t3ForestRegressor.a
 clean-global

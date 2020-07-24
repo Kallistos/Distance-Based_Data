@@ -4,3 +4,17 @@ command: vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/Measured
 Warning: Variability model contains outdated notation. Children nodes will no longer have effect on the model. Instead use the parent node to describe the parent of an configuration option. You can also use the converter providedby the Variability Model GUI in export>convert legacy model.
 command: all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/lrzip/measurements.xml
 Configs with too large deviation: 0
+432 configurations loaded.
+command: nfp Performance
+command: setsampleset /scratch/kallistos/Distance-Based_Data/Results/lrzip/lrzip_37/sampledConfigurations_random_t2.csv
+command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/cluster/ml-python-env/bin
+command: learn-python-opt RandomForestRegressor
+Learning: NumberOfConfigurationsLearning:99 NumberOfConfigurationsValidation:99
+Starting Prediction
+Optimal parameters random_state=2;n_estimators=15;max_features=auto;
+Starting Prediction
+Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/lrzip/lrzip_37/PreVal_RandomForestRegressor_lrzip__.csv
+Error rate: 0.1111620798516
+command: clean-global
+command: script ./learn_random_t3ForestRegressor.a
+command: log ./out_random_t3PredictionsForestRegressor.log

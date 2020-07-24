@@ -16,5 +16,5 @@ Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/x264/x264_49/PreVal_RandomForestRegressor_H264__.csv
 Error rate: 0.0330782799700029
 command: clean-global
-command: script ./learn_divDistBased_t3FR.a
-command: log ./out_divDistBased_t3PredictionsFR.log
+command: script ./learn_divDistBased_t3ForestRegressor.a
+command: log ./out_divDistBased_t3PredictionsForestRegressor.log
