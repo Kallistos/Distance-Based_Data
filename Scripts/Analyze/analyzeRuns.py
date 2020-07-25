@@ -145,6 +145,7 @@ def analyze_learning_log_file(path: str) -> Tuple[str, float]:
     error_rate: float = sys.float_info.max
     optimal_parameters: str = ""
     python_learner: bool = False
+    last_error_rate: float = sys.float_info.max
 
     file = open(path, 'r')
 
@@ -154,6 +155,9 @@ def analyze_learning_log_file(path: str) -> Tuple[str, float]:
             current_error_rate: float = float(split_line[-1])
             if current_error_rate < error_rate:
                 error_rate = current_error_rate
+        elif "Error: " in line:
+            split_line: List[str] = line.strip().split(":")
+            last_error_rate: float = float(split_line[-1])
         elif "Optimal parameters " in line:
             optimal_parameters = line.split()[2]
             if not python_learner:
@@ -165,6 +169,8 @@ def analyze_learning_log_file(path: str) -> Tuple[str, float]:
             return optimal_parameters, error_rate
     file.close()
 
+    if error_rate == sys.float_info.max:
+        error_rate = last_error_rate
     return optimal_parameters, error_rate
 
 
@@ -280,7 +286,7 @@ def main() -> None:
         for directory in sorted(directories):
             split_name: List[str] = directory.split("_")
             tmp_name: str = ""
-            print("Scanning " + split_name[len(split_name) - 1] + ". directory.")
+            #print("Scanning " + split_name[len(split_name) - 1] + ". directory.")
 
             for i in range(0, len(split_name) - 1):
                 if i != 0:
@@ -303,6 +309,9 @@ def main() -> None:
                         performance_statistic[case_study] = {}
                     performance: int = analyze_sampling_log_file(
                         run_directory + case_study + SEPARATOR + directory + SEPARATOR + file)
+                    if performance is None:
+                        print(case_study + " " + str(number_run) + " " + file + " has no performance value.\n")
+                        continue
                     if file_name in performance_statistic[case_study].keys():
                         performance_statistic[case_study][file_name].append(performance)
                     else:
@@ -316,7 +325,7 @@ def main() -> None:
                     (optimal_parameter, error) = analyze_learning_log_file(
                         run_directory + case_study + SEPARATOR + directory + SEPARATOR + file)
 
-                    if error > 1000 and "ForestRegressor" not in file:
+                    if error > 10000000:
                         FILE_STREAM.write(case_study + os.sep + directory + os.sep + file + "\n")
                         continue
 

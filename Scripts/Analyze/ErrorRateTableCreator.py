@@ -19,7 +19,7 @@ import subprocess
 SEPARATION_SIGN = ","
 ERROR_FILE_PREFIX = "all_error_"
 PERFORMANCE_FILE_PREFIX = "all_perf_"
-ML_PREFIXES = [""]#, "Predictions_", "PredictionsSVR_", "PredictionsForestRegressor_"]
+ML_PREFIXES = ["", "PredictionsMLR_", "PredictionsSVR_", "PredictionsForestRegressor_"]
 ERROR_FILE_SUFIX = ".txt"
 LOG_FILE_PREFIX = "out_"
 LOG_FILE_SUFIX = ".log"
@@ -42,7 +42,7 @@ EXCLUDED_DIRECTORIES = ["SinglePlots"]  # , "VP9_disc", "JavaGC_disc", "Hipacc_d
 FIRST_COLUMN_FORMAT = "e"
 OTHER_COLUMN_FORMAT = "abd"
 
-TO_IGNORE_RQ1 = ["rand"]
+TO_IGNORE_RQ1 = []#["rand"]
 TO_IGNORE_RQ2 = ["twise"]
 
 
