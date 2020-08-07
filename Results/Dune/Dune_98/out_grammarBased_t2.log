@@ -11,7 +11,7 @@ invalid number: 1181 respective config: Precon, SeqSOR, Solver, CGSolver, PreSmo
 invalid number: 4 respective config: Precon, SeqGS, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_54, root
 invalid number: 294 respective config: Precon, SeqGS, Solver, BiCGSTABSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_50, root
 invalid number: 1 respective config: Precon, SeqGS, Solver, CGSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
-ConfigurationSampling done in 2250 ms
+ConfigurationSampling done in 3005 ms
 2352
 root ::= (Precon, 2)   (Solver, 4)   (PreSmoothing, 7)   (PostSmoothing, 7)   (Cells, 6) Symbolkind: NONTERMINAL
 Precon ::= (SeqGS, 1) | (SeqSOR, 1) Symbolkind: TERMINAL

@@ -7,9 +7,7 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary grammar-based numConfigs:18 seed:18
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
-invalid number: 180 respective config: compression, level, level1, root
-invalid number: 194 respective config: compression, level, level4, unlimitedWindowSize, root
-ConfigurationSampling done in 249 ms
+ConfigurationSampling done in 287 ms
 432
 encryption ::= (ε, 1) | (encryption, 1) Symbolkind: TERMINAL
 unlimitedWindowSize ::= (ε, 1) | (unlimitedWindowSize, 1) Symbolkind: TERMINAL

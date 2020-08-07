@@ -17,8 +17,6 @@ invalid number: 199 respective config: API, OpenCL, TextureMemory, Linear1D, Blo
 invalid number: 3323 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x16, padding, padding_448, pixelPerThread, pixelPerThread_4, root
 invalid number: 5565 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_64x8, padding, padding_448, pixelPerThread, pixelPerThread_2, root
 invalid number: 20551 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_128x2, padding, padding_96, pixelPerThread, pixelPerThread_4, root
-invalid number: 28185 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_32x2, padding, padding_256, pixelPerThread, pixelPerThread_2, root
-invalid number: 28346 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_64x2, padding, padding_448, pixelPerThread, pixelPerThread_3, root
 invalid number: 2917 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x1, padding, padding_480, pixelPerThread, pixelPerThread_2, root
 invalid number: 9832 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_64x8, padding, padding_320, pixelPerThread, pixelPerThread_1, root
 invalid number: 9019 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_64x16, padding, padding_320, pixelPerThread, pixelPerThread_4, root
@@ -32,9 +30,7 @@ invalid number: 22412 respective config: API, CUDA, TextureMemory, Array2D, Loca
 invalid number: 6905 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_64x2, padding, padding_288, pixelPerThread, pixelPerThread_2, root
 invalid number: 558 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_128x2, padding, padding_96, pixelPerThread, pixelPerThread_3, root
 invalid number: 6142 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_64x16, padding, padding_160, pixelPerThread, pixelPerThread_3, root
-invalid number: 26496 respective config: API, CUDA, TextureMemory, Blocksize, bs_256x4, padding, padding_352, pixelPerThread, pixelPerThread_1, root
 invalid number: 11251 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_64x8, padding, padding_224, pixelPerThread, pixelPerThread_4, root
-invalid number: 13139 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_64x1, padding, padding_96, pixelPerThread, pixelPerThread_4, root
 invalid number: 2248 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_512x1, padding, padding_32, pixelPerThread, pixelPerThread_1, root
 invalid number: 3075 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x32, padding, padding_96, pixelPerThread, pixelPerThread_4, root
 invalid number: 20804 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_256x4, padding, padding_512, pixelPerThread, pixelPerThread_1, root
@@ -49,49 +45,32 @@ invalid number: 21774 respective config: API, CUDA, TextureMemory, Array2D, Loca
 invalid number: 7206 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_32x1, padding, padding_512, pixelPerThread, pixelPerThread_3, root
 invalid number: 20816 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_512x1, padding, padding_64, pixelPerThread, pixelPerThread_1, root
 invalid number: 10054 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x1, padding, padding_448, pixelPerThread, pixelPerThread_3, root
-invalid number: 26518 respective config: API, CUDA, TextureMemory, Blocksize, bs_256x4, padding, padding_512, pixelPerThread, pixelPerThread_3, root
 invalid number: 10164 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x16, padding, padding_256, pixelPerThread, pixelPerThread_1, root
 invalid number: 4794 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_128x1, padding, padding_256, pixelPerThread, pixelPerThread_3, root
-invalid number: 13803 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_512x2, padding, padding_512, pixelPerThread, pixelPerThread_4, root
-invalid number: 26265 respective config: API, CUDA, TextureMemory, Blocksize, bs_128x2, padding, padding_128, pixelPerThread, pixelPerThread_2, root
+invalid number: 13803 respective config: API, OpenCL, LocalMemory, Blocksize, bs_512x2, padding, padding_512, pixelPerThread, pixelPerThread_4, root
 invalid number: 9666 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_32x4, padding, padding_64, pixelPerThread, pixelPerThread_3, root
 invalid number: 6336 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_128x4, padding, padding_96, pixelPerThread, pixelPerThread_1, root
 invalid number: 8270 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_32x4, padding, padding_320, pixelPerThread, pixelPerThread_3, root
 invalid number: 3152 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x1, padding, padding_192, pixelPerThread, pixelPerThread_1, root
-invalid number: 27541 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_64x16, padding, padding_0, pixelPerThread, pixelPerThread_2, root
 invalid number: 5810 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_32x8, padding, padding_224, pixelPerThread, pixelPerThread_3, root
-invalid number: 13942 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x4, padding, padding_0, pixelPerThread, pixelPerThread_3, root
 invalid number: 10289 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_64x1, padding, padding_160, pixelPerThread, pixelPerThread_2, root
 invalid number: 11106 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x4, padding, padding_160, pixelPerThread, pixelPerThread_3, root
 invalid number: 5756 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_32x1, padding, padding_352, pixelPerThread, pixelPerThread_1, root
 invalid number: 22017 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_128x2, padding, padding_416, pixelPerThread, pixelPerThread_2, root
 invalid number: 5395 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_32x4, padding, padding_160, pixelPerThread, pixelPerThread_4, root
-invalid number: 27100 respective config: API, CUDA, TextureMemory, Blocksize, bs_256x2, padding, padding_288, pixelPerThread, pixelPerThread_1, root
-invalid number: 28261 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_32x4, padding, padding_320, pixelPerThread, pixelPerThread_2, root
-invalid number: 12974 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x8, padding, padding_416, pixelPerThread, pixelPerThread_3, root
-invalid number: 12432 respective config: API, OpenCL, TextureMemory, Blocksize, bs_1024x1, padding, padding_448, pixelPerThread, pixelPerThread_1, root
 invalid number: 1418 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_256x2, padding, padding_448, pixelPerThread, pixelPerThread_3, root
 invalid number: 2278 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_512x1, padding, padding_256, pixelPerThread, pixelPerThread_3, root
-invalid number: 12856 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x1, padding, padding_32, pixelPerThread, pixelPerThread_1, root
-invalid number: 26677 respective config: API, CUDA, TextureMemory, Blocksize, bs_1024x1, padding, padding_160, pixelPerThread, pixelPerThread_2, root
-invalid number: 28007 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_512x1, padding, padding_448, pixelPerThread, pixelPerThread_4, root
-invalid number: 12509 respective config: API, OpenCL, TextureMemory, Blocksize, bs_32x2, padding, padding_512, pixelPerThread, pixelPerThread_2, root
 invalid number: 1147 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_32x4, padding, padding_448, pixelPerThread, pixelPerThread_4, root
-invalid number: 27954 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_512x1, padding, padding_32, pixelPerThread, pixelPerThread_3, root
 invalid number: 97 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_32x8, padding, padding_224, pixelPerThread, pixelPerThread_2, root
-invalid number: 27420 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_64x1, padding, padding_128, pixelPerThread, pixelPerThread_1, root
 invalid number: 3345 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_128x1, padding, padding_96, pixelPerThread, pixelPerThread_2, root
-invalid number: 26355 respective config: API, CUDA, TextureMemory, Blocksize, bs_128x4, padding, padding_288, pixelPerThread, pixelPerThread_4, root
 invalid number: 3650 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_256x4, padding, padding_352, pixelPerThread, pixelPerThread_3, root
 invalid number: 3137 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x1, padding, padding_64, pixelPerThread, pixelPerThread_2, root
-invalid number: 12406 respective config: API, OpenCL, TextureMemory, Blocksize, bs_1024x1, padding, padding_224, pixelPerThread, pixelPerThread_3, root
 invalid number: 20912 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_512x2, padding, padding_288, pixelPerThread, pixelPerThread_1, root
 invalid number: 11330 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_256x1, padding, padding_320, pixelPerThread, pixelPerThread_3, root
 invalid number: 3948 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x4, padding, padding_32, pixelPerThread, pixelPerThread_1, root
 invalid number: 5734 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_32x1, padding, padding_160, pixelPerThread, pixelPerThread_3, root
 invalid number: 8336 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_64x2, padding, padding_320, pixelPerThread, pixelPerThread_1, root
 invalid number: 3399 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_128x1, padding, padding_512, pixelPerThread, pixelPerThread_4, root
-invalid number: 12730 respective config: API, OpenCL, TextureMemory, Blocksize, bs_256x1, padding, padding_96, pixelPerThread, pixelPerThread_3, root
 invalid number: 22188 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_256x4, padding, padding_160, pixelPerThread, pixelPerThread_1, root
 invalid number: 4244 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_256x2, padding, padding_224, pixelPerThread, pixelPerThread_1, root
 invalid number: 3185 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x1, padding, padding_448, pixelPerThread, pixelPerThread_2, root
@@ -100,20 +79,17 @@ invalid number: 21111 respective config: API, CUDA, TextureMemory, Array2D, Bloc
 invalid number: 4074 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x2, padding, padding_480, pixelPerThread, pixelPerThread_3, root
 invalid number: 2038 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_128x2, padding, padding_512, pixelPerThread, pixelPerThread_3, root
 invalid number: 21980 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_128x2, padding, padding_128, pixelPerThread, pixelPerThread_1, root
-invalid number: 13590 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_128x8, padding, padding_448, pixelPerThread, pixelPerThread_3, root
+invalid number: 13590 respective config: API, OpenCL, LocalMemory, Blocksize, bs_128x8, padding, padding_448, pixelPerThread, pixelPerThread_3, root
 invalid number: 2458 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_32x2, padding, padding_64, pixelPerThread, pixelPerThread_3, root
 invalid number: 412 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_64x16, padding, padding_32, pixelPerThread, pixelPerThread_1, root
 invalid number: 20602 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_128x2, padding, padding_512, pixelPerThread, pixelPerThread_3, root
 invalid number: 7601 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_64x16, padding, padding_416, pixelPerThread, pixelPerThread_2, root
-invalid number: 12845 respective config: API, OpenCL, TextureMemory, Blocksize, bs_256x2, padding, padding_480, pixelPerThread, pixelPerThread_2, root
 invalid number: 8354 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_64x2, padding, padding_448, pixelPerThread, pixelPerThread_3, root
 invalid number: 20319 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_64x1, padding, padding_416, pixelPerThread, pixelPerThread_4, root
 invalid number: 10563 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_128x2, padding, padding_160, pixelPerThread, pixelPerThread_4, root
 invalid number: 22080 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_128x4, padding, padding_384, pixelPerThread, pixelPerThread_1, root
 invalid number: 22001 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_128x2, padding, padding_288, pixelPerThread, pixelPerThread_2, root
-invalid number: 27092 respective config: API, CUDA, TextureMemory, Blocksize, bs_256x2, padding, padding_224, pixelPerThread, pixelPerThread_1, root
 invalid number: 10100 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x8, padding, padding_288, pixelPerThread, pixelPerThread_1, root
-invalid number: 12522 respective config: API, OpenCL, TextureMemory, Blocksize, bs_32x4, padding, padding_64, pixelPerThread, pixelPerThread_3, root
 invalid number: 2917 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x1, padding, padding_480, pixelPerThread, pixelPerThread_2, root
 invalid number: 18818 respective config: API, CUDA, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_32x32, padding, padding_384, pixelPerThread, pixelPerThread_3, root
 invalid number: 20180 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_32x16, padding, padding_416, pixelPerThread, pixelPerThread_1, root
@@ -121,81 +97,8 @@ invalid number: 10864 respective config: API, OpenCL, TextureMemory, Ldg, LocalM
 invalid number: 2039 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_128x2, padding, padding_512, pixelPerThread, pixelPerThread_4, root
 invalid number: 8823 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_32x32, padding, padding_384, pixelPerThread, pixelPerThread_4, root
 invalid number: 6795 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_32x2, padding, padding_480, pixelPerThread, pixelPerThread_4, root
-invalid number: 26955 respective config: API, CUDA, TextureMemory, Blocksize, bs_64x8, padding, padding_192, pixelPerThread, pixelPerThread_4, root
 invalid number: 7100 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_256x2, padding, padding_224, pixelPerThread, pixelPerThread_1, root
-invalid number: 13908 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x2, padding, padding_288, pixelPerThread, pixelPerThread_1, root
-invalid number: 14027 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_64x2, padding, padding_128, pixelPerThread, pixelPerThread_4, root
-invalid number: 6142 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_64x16, padding, padding_160, pixelPerThread, pixelPerThread_3, root
-invalid number: 1584 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_32x16, padding, padding_160, pixelPerThread, pixelPerThread_1, root
-invalid number: 12493 respective config: API, OpenCL, TextureMemory, Blocksize, bs_32x2, padding, padding_384, pixelPerThread, pixelPerThread_2, root
-invalid number: 27426 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_64x1, padding, padding_160, pixelPerThread, pixelPerThread_3, root
-invalid number: 4734 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_64x16, padding, padding_320, pixelPerThread, pixelPerThread_3, root
-invalid number: 5472 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_64x2, padding, padding_256, pixelPerThread, pixelPerThread_1, root
-invalid number: 11071 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x2, padding, padding_416, pixelPerThread, pixelPerThread_4, root
-invalid number: 8886 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_64x1, padding, padding_352, pixelPerThread, pixelPerThread_3, root
-invalid number: 578 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_128x2, padding, padding_256, pixelPerThread, pixelPerThread_3, root
-invalid number: 22058 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_128x4, padding, padding_192, pixelPerThread, pixelPerThread_3, root
-invalid number: 4197 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_256x1, padding, padding_384, pixelPerThread, pixelPerThread_2, root
-invalid number: 25976 respective config: API, CUDA, TextureMemory, Blocksize, bs_64x1, padding, padding_0, pixelPerThread, pixelPerThread_1, root
-invalid number: 20101 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_32x8, padding, padding_320, pixelPerThread, pixelPerThread_2, root
-invalid number: 4016 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x2, padding, padding_32, pixelPerThread, pixelPerThread_1, root
-invalid number: 10936 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_512x2, padding, padding_448, pixelPerThread, pixelPerThread_1, root
-invalid number: 9879 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_256x1, padding, padding_128, pixelPerThread, pixelPerThread_4, root
-invalid number: 26225 respective config: API, CUDA, TextureMemory, Blocksize, bs_128x1, padding, padding_352, pixelPerThread, pixelPerThread_2, root
-invalid number: 1388 respective config: API, OpenCL, TextureMemory, Linear1D, Blocksize, bs_256x2, padding, padding_224, pixelPerThread, pixelPerThread_1, root
-invalid number: 4757 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_64x16, padding, padding_512, pixelPerThread, pixelPerThread_2, root
-invalid number: 10823 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_512x1, padding, padding_64, pixelPerThread, pixelPerThread_4, root
-invalid number: 8904 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_64x1, padding, padding_512, pixelPerThread, pixelPerThread_1, root
-invalid number: 11505 respective config: API, OpenCL, TextureMemory, Blocksize, bs_32x8, padding, padding_96, pixelPerThread, pixelPerThread_2, root
-invalid number: 8645 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_32x8, padding, padding_64, pixelPerThread, pixelPerThread_2, root
-invalid number: 14156 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_256x1, padding, padding_96, pixelPerThread, pixelPerThread_1, root
-invalid number: 25942 respective config: API, CUDA, TextureMemory, Blocksize, bs_32x32, padding, padding_256, pixelPerThread, pixelPerThread_3, root
-invalid number: 13649 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_256x4, padding, padding_384, pixelPerThread, pixelPerThread_2, root
-invalid number: 26359 respective config: API, CUDA, TextureMemory, Blocksize, bs_128x4, padding, padding_320, pixelPerThread, pixelPerThread_4, root
-invalid number: 12926 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x8, padding, padding_32, pixelPerThread, pixelPerThread_3, root
-invalid number: 11111 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x4, padding, padding_192, pixelPerThread, pixelPerThread_4, root
-invalid number: 5387 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_32x4, padding, padding_96, pixelPerThread, pixelPerThread_4, root
-invalid number: 3917 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x2, padding, padding_320, pixelPerThread, pixelPerThread_2, root
-invalid number: 8708 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_32x16, padding, padding_32, pixelPerThread, pixelPerThread_1, root
-invalid number: 6752 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_32x2, padding, padding_160, pixelPerThread, pixelPerThread_1, root
-invalid number: 6420 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_128x8, padding, padding_224, pixelPerThread, pixelPerThread_1, root
-invalid number: 11136 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x4, padding, padding_416, pixelPerThread, pixelPerThread_1, root
-invalid number: 10912 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_512x2, padding, padding_256, pixelPerThread, pixelPerThread_1, root
-invalid number: 8408 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_64x8, padding, padding_352, pixelPerThread, pixelPerThread_1, root
-invalid number: 5486 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_64x2, padding, padding_352, pixelPerThread, pixelPerThread_3, root
-invalid number: 26377 respective config: API, CUDA, TextureMemory, Blocksize, bs_128x4, padding, padding_480, pixelPerThread, pixelPerThread_2, root
-invalid number: 20050 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_32x1, padding, padding_448, pixelPerThread, pixelPerThread_3, root
-invalid number: 13926 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x2, padding, padding_416, pixelPerThread, pixelPerThread_3, root
-invalid number: 26302 respective config: API, CUDA, TextureMemory, Blocksize, bs_128x2, padding, padding_416, pixelPerThread, pixelPerThread_3, root
-invalid number: 20719 respective config: API, CUDA, TextureMemory, Array2D, Blocksize, bs_128x8, padding, padding_352, pixelPerThread, pixelPerThread_4, root
-invalid number: 1476 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_32x1, padding, padding_384, pixelPerThread, pixelPerThread_1, root
-invalid number: 5696 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_256x2, padding, padding_416, pixelPerThread, pixelPerThread_1, root
-invalid number: 2317 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_512x2, padding, padding_32, pixelPerThread, pixelPerThread_2, root
-invalid number: 13704 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_512x1, padding, padding_288, pixelPerThread, pixelPerThread_1, root
-invalid number: 5360 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_32x2, padding, padding_448, pixelPerThread, pixelPerThread_1, root
-invalid number: 2918 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x1, padding, padding_480, pixelPerThread, pixelPerThread_3, root
-invalid number: 4010 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_32x4, padding, padding_512, pixelPerThread, pixelPerThread_3, root
-invalid number: 4023 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x2, padding, padding_64, pixelPerThread, pixelPerThread_4, root
-invalid number: 2294 respective config: API, OpenCL, TextureMemory, Linear1D, LocalMemory, Blocksize, bs_512x1, padding, padding_384, pixelPerThread, pixelPerThread_3, root
-invalid number: 22601 respective config: API, CUDA, TextureMemory, Array2D, LocalMemory, Blocksize, bs_64x2, padding, padding_192, pixelPerThread, pixelPerThread_2, root
-invalid number: 11817 respective config: API, OpenCL, TextureMemory, Blocksize, bs_64x4, padding, padding_416, pixelPerThread, pixelPerThread_2, root
-invalid number: 19374 respective config: API, CUDA, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_256x4, padding, padding_480, pixelPerThread, pixelPerThread_3, root
-invalid number: 9881 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_256x1, padding, padding_160, pixelPerThread, pixelPerThread_2, root
-invalid number: 27714 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_128x2, padding, padding_288, pixelPerThread, pixelPerThread_3, root
-invalid number: 11506 respective config: API, OpenCL, TextureMemory, Blocksize, bs_32x8, padding, padding_96, pixelPerThread, pixelPerThread_3, root
-invalid number: 11592 respective config: API, OpenCL, TextureMemory, Blocksize, bs_32x16, padding, padding_256, pixelPerThread, pixelPerThread_1, root
-invalid number: 4046 respective config: API, OpenCL, TextureMemory, Linear2D, Blocksize, bs_64x2, padding, padding_256, pixelPerThread, pixelPerThread_3, root
-invalid number: 6928 respective config: API, OpenCL, TextureMemory, Array2D, Blocksize, bs_64x2, padding, padding_480, pixelPerThread, pixelPerThread_1, root
-invalid number: 5577 respective config: API, OpenCL, TextureMemory, Linear2D, LocalMemory, Blocksize, bs_256x1, padding, padding_0, pixelPerThread, pixelPerThread_2, root
-invalid number: 10986 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_1024x1, padding, padding_288, pixelPerThread, pixelPerThread_3, root
-invalid number: 7531 respective config: API, OpenCL, TextureMemory, Array2D, LocalMemory, Blocksize, bs_64x4, padding, padding_384, pixelPerThread, pixelPerThread_4, root
-invalid number: 8583 respective config: API, OpenCL, TextureMemory, Ldg, Blocksize, bs_32x1, padding, padding_96, pixelPerThread, pixelPerThread_4, root
-invalid number: 10122 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x8, padding, padding_448, pixelPerThread, pixelPerThread_3, root
-invalid number: 27523 respective config: API, CUDA, TextureMemory, LocalMemory, Blocksize, bs_64x4, padding, padding_384, pixelPerThread, pixelPerThread_4, root
-invalid number: 13104 respective config: API, OpenCL, TextureMemory, LocalMemory, Blocksize, bs_32x32, padding, padding_384, pixelPerThread, pixelPerThread_1, root
-invalid number: 10569 respective config: API, OpenCL, TextureMemory, Ldg, LocalMemory, Blocksize, bs_128x2, padding, padding_224, pixelPerThread, pixelPerThread_2, root
-invalid number: 24483 respective config: API, CUDA, TextureMemory, Ldg, LocalMemory, Blocksize, bs_32x32, padding, padding_0, pixelPerThread, pixelPerThread_4, root
-ConfigurationSampling done in 2200 ms
+ConfigurationSampling done in 2000 ms
 28560
 LocalMemory ::= (ε, 1) | (LocalMemory, 1) Symbolkind: TERMINAL
 root ::= (API, 2)   (TextureMemory, 5)   (LocalMemory, 2)   (Blocksize, 21)   (padding, 17)   (pixelPerThread, 4) Symbolkind: NONTERMINAL

@@ -28,7 +28,7 @@ invalid number: 1767 respective config: Precon, SeqSOR, Solver, LoopSolver, PreS
 invalid number: 2061 respective config: Precon, SeqSOR, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_53, root
 invalid number: 1766 respective config: Precon, SeqSOR, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_52, root
 invalid number: 588 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_50, root
-ConfigurationSampling done in 9113 ms
+ConfigurationSampling done in 16849 ms
 2352
 root ::= (Precon, 2)   (Solver, 4)   (PreSmoothing, 7)   (PostSmoothing, 7)   (Cells, 6) Symbolkind: NONTERMINAL
 Precon ::= (SeqGS, 1) | (SeqSOR, 1) Symbolkind: TERMINAL

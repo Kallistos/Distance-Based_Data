@@ -7,23 +7,7 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary grammar-based numConfigs:99 seed:51
 command: printconfigs ./sampledConfigurations_grammarBased_t2.csv
-invalid number: 411 respective config: encryption, compression, level, level4, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 190 respective config: compression, level, level3, unlimitedWindowSize, root
-invalid number: 184 respective config: compression, level, level2, root
-invalid number: 426 respective config: encryption, compression, level, level8, unlimitedWindowSize, root
-invalid number: 200 respective config: compression, level, level6, root
-invalid number: 212 respective config: compression, level, level9, root
-invalid number: 182 respective config: compression, level, level1, unlimitedWindowSize, root
-invalid number: 182 respective config: compression, level, level1, unlimitedWindowSize, root
-invalid number: 198 respective config: compression, level, level5, unlimitedWindowSize, root
-invalid number: 181 respective config: compression, level, level1, disableCompressibilityTesting, root
-invalid number: 209 respective config: compression, level, level8, disableCompressibilityTesting, root
-invalid number: 198 respective config: compression, level, level5, unlimitedWindowSize, root
-invalid number: 403 respective config: encryption, compression, level, level2, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 398 respective config: encryption, compression, level, level1, unlimitedWindowSize, root
-invalid number: 419 respective config: encryption, compression, level, level6, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 429 respective config: encryption, compression, level, level9, disableCompressibilityTesting, root
-ConfigurationSampling done in 921 ms
+ConfigurationSampling done in 1073 ms
 432
 encryption ::= (ε, 1) | (encryption, 1) Symbolkind: TERMINAL
 unlimitedWindowSize ::= (ε, 1) | (unlimitedWindowSize, 1) Symbolkind: TERMINAL

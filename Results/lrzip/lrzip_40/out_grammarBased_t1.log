@@ -7,12 +7,7 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary grammar-based numConfigs:18 seed:40
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
-invalid number: 423 respective config: encryption, compression, level, level7, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 424 respective config: encryption, compression, level, level8, root
-invalid number: 428 respective config: encryption, compression, level, level9, root
-invalid number: 423 respective config: encryption, compression, level, level7, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 409 respective config: encryption, compression, level, level4, disableCompressibilityTesting, root
-ConfigurationSampling done in 280 ms
+ConfigurationSampling done in 288 ms
 432
 encryption ::= (ε, 1) | (encryption, 1) Symbolkind: TERMINAL
 unlimitedWindowSize ::= (ε, 1) | (unlimitedWindowSize, 1) Symbolkind: TERMINAL

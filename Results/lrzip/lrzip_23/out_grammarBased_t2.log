@@ -7,25 +7,7 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary grammar-based numConfigs:99 seed:23
 command: printconfigs ./sampledConfigurations_grammarBased_t2.csv
-invalid number: 195 respective config: compression, level, level4, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 196 respective config: compression, level, level5, root
-invalid number: 215 respective config: compression, level, level9, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 183 respective config: compression, level, level1, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 209 respective config: compression, level, level8, disableCompressibilityTesting, root
-invalid number: 202 respective config: compression, level, level6, unlimitedWindowSize, root
-invalid number: 398 respective config: encryption, compression, level, level1, unlimitedWindowSize, root
-invalid number: 407 respective config: encryption, compression, level, level3, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 409 respective config: encryption, compression, level, level4, disableCompressibilityTesting, root
-invalid number: 204 respective config: compression, level, level7, root
-invalid number: 404 respective config: encryption, compression, level, level3, root
-invalid number: 404 respective config: encryption, compression, level, level3, root
-invalid number: 191 respective config: compression, level, level3, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 183 respective config: compression, level, level1, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 415 respective config: encryption, compression, level, level5, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 203 respective config: compression, level, level6, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 182 respective config: compression, level, level1, unlimitedWindowSize, root
-invalid number: 431 respective config: encryption, compression, level, level9, unlimitedWindowSize, disableCompressibilityTesting, root
-ConfigurationSampling done in 942 ms
+ConfigurationSampling done in 1076 ms
 432
 encryption ::= (ε, 1) | (encryption, 1) Symbolkind: TERMINAL
 unlimitedWindowSize ::= (ε, 1) | (unlimitedWindowSize, 1) Symbolkind: TERMINAL

@@ -7,7 +7,7 @@ Configs with too large deviation: 0
 2304 configurations loaded.
 command: binary grammar-based numConfigs:25 seed:89
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
-ConfigurationSampling done in 320 ms
+ConfigurationSampling done in 379 ms
 2352
 root ::= (Precon, 2)   (Solver, 4)   (PreSmoothing, 7)   (PostSmoothing, 7)   (Cells, 6) Symbolkind: NONTERMINAL
 Precon ::= (SeqGS, 1) | (SeqSOR, 1) Symbolkind: TERMINAL

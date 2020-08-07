@@ -7,21 +7,7 @@ Configs with too large deviation: 0
 432 configurations loaded.
 command: binary grammar-based numConfigs:99 seed:32
 command: printconfigs ./sampledConfigurations_grammarBased_t2.csv
-invalid number: 202 respective config: compression, level, level6, unlimitedWindowSize, root
-invalid number: 206 respective config: compression, level, level7, unlimitedWindowSize, root
-invalid number: 429 respective config: encryption, compression, level, level9, disableCompressibilityTesting, root
-invalid number: 197 respective config: compression, level, level5, disableCompressibilityTesting, root
-invalid number: 427 respective config: encryption, compression, level, level8, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 401 respective config: encryption, compression, level, level2, disableCompressibilityTesting, root
-invalid number: 407 respective config: encryption, compression, level, level3, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 431 respective config: encryption, compression, level, level9, unlimitedWindowSize, disableCompressibilityTesting, root
-invalid number: 189 respective config: compression, level, level3, disableCompressibilityTesting, root
-invalid number: 413 respective config: encryption, compression, level, level5, disableCompressibilityTesting, root
-invalid number: 420 respective config: encryption, compression, level, level7, root
-invalid number: 210 respective config: compression, level, level8, unlimitedWindowSize, root
-invalid number: 214 respective config: compression, level, level9, unlimitedWindowSize, root
-invalid number: 205 respective config: compression, level, level7, disableCompressibilityTesting, root
-ConfigurationSampling done in 919 ms
+ConfigurationSampling done in 1065 ms
 432
 encryption ::= (ε, 1) | (encryption, 1) Symbolkind: TERMINAL
 unlimitedWindowSize ::= (ε, 1) | (unlimitedWindowSize, 1) Symbolkind: TERMINAL

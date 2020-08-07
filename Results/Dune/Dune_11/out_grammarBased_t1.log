@@ -8,7 +8,7 @@ Configs with too large deviation: 0
 command: binary grammar-based numConfigs:25 seed:11
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
 invalid number: 593 respective config: Precon, SeqGS, Solver, LoopSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_55, root
-ConfigurationSampling done in 305 ms
+ConfigurationSampling done in 388 ms
 2352
 root ::= (Precon, 2)   (Solver, 4)   (PreSmoothing, 7)   (PostSmoothing, 7)   (Cells, 6) Symbolkind: NONTERMINAL
 Precon ::= (SeqGS, 1) | (SeqSOR, 1) Symbolkind: TERMINAL

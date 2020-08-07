@@ -9,7 +9,7 @@ command: binary grammar-based numConfigs:25 seed:5
 command: printconfigs ./sampledConfigurations_grammarBased_t1.csv
 invalid number: 883 respective config: Precon, SeqGS, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_51, root
 invalid number: 886 respective config: Precon, SeqGS, Solver, GradientSolver, PreSmoothing, pre_0, PostSmoothing, post_0, Cells, cells_54, root
-ConfigurationSampling done in 320 ms
+ConfigurationSampling done in 393 ms
 2352
 root ::= (Precon, 2)   (Solver, 4)   (PreSmoothing, 7)   (PostSmoothing, 7)   (Cells, 6) Symbolkind: NONTERMINAL
 Precon ::= (SeqGS, 1) | (SeqSOR, 1) Symbolkind: TERMINAL
