@@ -14,7 +14,7 @@ Starting Prediction
 Optimal parameters tol=0.05;shrinking=False;gamma=auto;epsilon=0.2;coef0=1;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/lrzip/lrzip_36/PreVal_SVR_lrzip__.csv
-Error rate: 1.4699074831848
+Error rate: 1.37120010982706
 command: clean-global
 command: script ./learn_grammarBased_t3SVR.a
 command: log ./out_grammarBased_t3PredictionsSVR.log

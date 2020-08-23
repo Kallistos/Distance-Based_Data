@@ -1,4 +1,4 @@
-Run 15 out of 15.
-mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/lrzip/lrzip_15/learnAlllrzip.a >> /dev/null;
-command: script ./learn_grammarBased_t1MLR.a
-command: log ./out_grammarBased_t1PredictionsMLR.log
+Run 100 out of 100.
+mono /scratch/kallistos/SPLConqueror/SPLConqueror/CommandLine/bin/Release/CommandLine.exe /scratch/kallistos/Distance-Based_Data/Results/Hipacc/Hipacc_100/learnAllHipacc.a >> /dev/null;
+command: script ./learn_divDistBased_t1MLR.a
+command: log ./out_divDistBased_t1PredictionsMLR.log

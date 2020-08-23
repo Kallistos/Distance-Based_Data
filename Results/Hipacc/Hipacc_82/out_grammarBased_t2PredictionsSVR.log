@@ -15,7 +15,7 @@ Starting Prediction
 Optimal parameters tol=0.2;shrinking=False;gamma=auto;epsilon=0.3;coef0=0;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Hipacc/Hipacc_82/PreVal_SVR_HiPAcc__.csv
-Error rate: 0.14600064237433
+Error rate: 0.138524523936296
 command: clean-global
 command: script ./learn_grammarBased_t3SVR.a
 command: log ./out_grammarBased_t3PredictionsSVR.log

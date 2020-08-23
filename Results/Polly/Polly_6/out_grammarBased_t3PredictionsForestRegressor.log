@@ -10,8 +10,8 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt RandomForestRegressor
 Learning: NumberOfConfigurationsLearning:2172 NumberOfConfigurationsValidation:2172
 Starting Prediction
-Optimal parameters random_state=1;n_estimators=12;max_features=auto;
+Optimal parameters random_state=3;n_estimators=20;max_features=log2;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Polly/Polly_6/PreVal_RandomForestRegressor_FeatureModel__.csv
-Error rate: 0.023750872118285
+Error rate: 0.0699494060642188
 command: clean-global

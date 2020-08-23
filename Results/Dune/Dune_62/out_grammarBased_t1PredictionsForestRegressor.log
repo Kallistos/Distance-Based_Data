@@ -16,5 +16,5 @@ Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Dune/Dune_62/PreVal_RandomForestRegressor_FeatureModelBinary__.csv
 Error rate: 0.18248762918783
 command: clean-global
-command: script ./learn_grammarBased_t2FR.a
-command: log ./out_grammarBased_t2PredictionsFR.log
+command: script ./learn_grammarBased_t2ForestRegressor.a
+command: log ./out_grammarBased_t2PredictionsForestRegressor.log

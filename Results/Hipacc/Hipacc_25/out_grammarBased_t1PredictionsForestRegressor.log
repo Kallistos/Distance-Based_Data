@@ -15,7 +15,7 @@ Starting Prediction
 Optimal parameters random_state=1;n_estimators=15;max_features=auto;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Hipacc/Hipacc_25/PreVal_RandomForestRegressor_HiPAcc__.csv
-Error rate: 0.190354633624705
+Error rate: 0.194409931708423
 command: clean-global
-command: script ./learn_grammarBased_t2FR.a
-command: log ./out_grammarBased_t2PredictionsFR.log
+command: script ./learn_grammarBased_t2ForestRegressor.a
+command: log ./out_grammarBased_t2PredictionsForestRegressor.log

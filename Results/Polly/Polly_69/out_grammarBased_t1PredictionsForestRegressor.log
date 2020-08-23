@@ -13,7 +13,7 @@ Starting Prediction
 Optimal parameters random_state=1;n_estimators=10;max_features=sqrt;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Polly/Polly_69/PreVal_RandomForestRegressor_FeatureModel__.csv
-Error rate: 0.28563368759807
+Error rate: 0.285634598641783
 command: clean-global
-command: script ./learn_grammarBased_t2FR.a
-command: log ./out_grammarBased_t2PredictionsFR.log
+command: script ./learn_grammarBased_t2ForestRegressor.a
+command: log ./out_grammarBased_t2PredictionsForestRegressor.log
