@@ -14,7 +14,7 @@ Starting Prediction
 Optimal parameters random_state=3;n_estimators=15;max_features=auto;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/lrzip/lrzip_31/PreVal_RandomForestRegressor_lrzip__.csv
-Error rate: 0.23688767259015
+Error rate: 0.191722525613854
 command: clean-global
 command: script ./learn_divDistBased_t3ForestRegressor.a
 command: log ./out_divDistBased_t3PredictionsForestRegressor.log

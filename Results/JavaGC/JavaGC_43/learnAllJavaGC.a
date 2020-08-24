@@ -1,6 +1,6 @@
-script ./learn_divDistBased_t1MLR.a
+script ./learn_divDistBased_t1ForestRegressor.a
 clean-global
-script ./learn_divDistBased_t2MLR.a
+script ./learn_divDistBased_t2ForestRegressor.a
 clean-global
-script ./learn_divDistBased_t3MLR.a
+script ./learn_divDistBased_t3ForestRegressor.a
 clean-global

@@ -11,10 +11,10 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt SVR
 Learning: NumberOfConfigurationsLearning:25 NumberOfConfigurationsValidation:25
 Starting Prediction
-Optimal parameters tol=0.1;shrinking=False;gamma=auto;epsilon=0.3;coef0=0;C=5;
+Optimal parameters tol=0.1;shrinking=False;gamma=auto;epsilon=0.1;coef0=2;C=5;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Dune/Dune_86/PreVal_SVR_FeatureModelBinary__.csv
-Error rate: 0.196745847644632
+Error rate: 0.190330994047006
 command: clean-global
 command: script ./learn_divDistBased_t2SVR.a
 command: log ./out_divDistBased_t2PredictionsSVR.log

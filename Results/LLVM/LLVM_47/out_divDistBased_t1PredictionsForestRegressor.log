@@ -14,7 +14,7 @@ Starting Prediction
 Optimal parameters random_state=1;n_estimators=15;max_features=auto;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/LLVM/LLVM_47/PreVal_RandomForestRegressor_LLVM_OPT__.csv
-Error rate: 0.075167045330906
+Error rate: 0.0630665430128422
 command: clean-global
 command: script ./learn_divDistBased_t2ForestRegressor.a
 command: log ./out_divDistBased_t2PredictionsForestRegressor.log
