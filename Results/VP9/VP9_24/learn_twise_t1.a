@@ -2,4 +2,4 @@ log ./out_twise_t1PredictionsMLR.log
 vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/VP9/FeatureModel.xml
 all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/VP9/measurements.csv
 nfp Performance
-evaluate-model ./out_twise_t1Predictions.log_wrong_result
+evaluate-model ./out_twise_t1PredictionsMLRModel.log
