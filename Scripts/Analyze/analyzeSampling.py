@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 
-case_studies = ["7z",
+case_studies = [# "7z",
                 "BerkeleyDBC",
-                "Dune",
-                "Hipacc",
-                "JavaGC",
-                "LLVM",
-                "lrzip",
-                "Polly",
-                "VP9",
-                "x264",
+                # "Dune",
+                # "Hipacc",
+                # "JavaGC",
+                # "LLVM",
+                # "lrzip",
+                # "Polly",
+                # "VP9",
+                # "x264",
                 ]
 
 all_config_path = "../../SupplementaryWebsite/MeasuredPerformanceValues/"
@@ -139,6 +139,12 @@ def get_sampling_indices(case_study, strategy):
 def produce_lineplot_values(case_study):
     import pandas as pd
     sampling_strategies = ["t-wise", "solver-based", "randomized solver-based", "distance-based", "grammar-based", "random"]
+    x_values_results = []
+    x_values_t2_results = []
+    x_values_t3_results = []
+    y_values_results = []
+    y_values_t2_results = []
+    y_values_t3_results = []
     x_values = []
     x_values_t2 = []
     x_values_t3 = []
@@ -167,7 +173,7 @@ def produce_lineplot_values(case_study):
             y_values_t2[idx] += 1
         for i in range(0, len(y_values_t2)):
             y_values_t2[i] = y_values_t2[i] / float(len(all_samples))
-        sampling_set = t2_sampling_sets[case_study][strategy]
+        sampling_set = t3_sampling_sets[case_study][strategy]
         all_samples = []
         for index_set in sampling_set:
             all_samples = all_samples + index_set
@@ -175,13 +181,19 @@ def produce_lineplot_values(case_study):
             y_values_t3[idx] += 1
         for i in range(0, len(y_values_t3)):
             y_values_t3[i] = y_values_t3[i] / float(len(all_samples))
+        x_values_results += x_values
+        x_values_t2_results += x_values_t2
+        x_values_t3_results += x_values_t3
+        y_values_results += y_values
+        y_values_t2_results += y_values_t2
+        y_values_t3_results += y_values_t3
     output_dir = 'plots/' + case_study
     mkdir_p(output_dir)
-    df = pd.DataFrame({"x": x_values, "y": y_values})
+    df = pd.DataFrame({"x": x_values_results, "y": y_values_results})
     seaborn_vio_plot(df, output_dir + '/violin' + '_' + case_study + '_' + 't1.pdf', case_study)
-    df = pd.DataFrame({"x": x_values_t2, "y": y_values_t2})
+    df = pd.DataFrame({"x": x_values_t2_results, "y": y_values_t2_results})
     seaborn_vio_plot(df, output_dir + '/violin' + '_' + case_study + '_' + 't2.pdf', case_study)
-    df = pd.DataFrame({"x": x_values_t3, "y": y_values_t3})
+    df = pd.DataFrame({"x": x_values_t3_results, "y": y_values_t3_results})
     seaborn_vio_plot(df, output_dir + '/violin' + '_' + case_study + '_' + 't3.pdf', case_study)
 
 
@@ -206,7 +218,7 @@ def seaborn_vio_plot(df, name, case_study):
     line = plt.axhline(y=y_line_value, linestyle='--', linewidth=2, color='k', label='uniform baseline')
     plt.legend([line], ['uniform baseline'], bbox_to_anchor=(0., 1.02, 1., .102), loc='lower right', ncol=2, borderaxespad=0.)
     plt.ylabel("[%]", fontsize=font_size + 2)
-    # plt.ylim(0.0, 0.0005)
+    plt.ylim(0.0, 0.0016)
     plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
     plt.savefig(name)
     plt.close()
@@ -336,7 +348,7 @@ def start():
             t3_sampling_sets[study][strategy] = []
             get_sampling_indices(study, strategy)
         produce_lineplot_values(study)
-    generate_statistical_tests()
+    # generate_statistical_tests()
 
 
 if __name__ == "__main__":
