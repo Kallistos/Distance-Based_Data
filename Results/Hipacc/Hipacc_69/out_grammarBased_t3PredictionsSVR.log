@@ -12,8 +12,8 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt SVR
 Learning: NumberOfConfigurationsLearning:4601 NumberOfConfigurationsValidation:4601
 Starting Prediction
-Optimal parameters tol=0.1;shrinking=True;gamma=auto;epsilon=0.1;coef0=0;C=5;
+Optimal parameters tol=0.05;shrinking=False;gamma=auto;epsilon=0.2;coef0=1;C=2;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/Hipacc/Hipacc_69/PreVal_SVR_HiPAcc__.csv
-Error rate: 0.140587865544377
+Error rate: 0.128600864681431
 command: clean-global

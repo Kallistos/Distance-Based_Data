@@ -2,4 +2,4 @@ log ./out_divDistBased_t2PredictionsMLR.log
 vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/LLVM/FeatureModel.xml
 all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/LLVM/measurements.xml
 nfp Performance
-evaluate-model ./out_divDistBased_t2Predictions.log_wrong_result
+evaluate-model ./out_divDistBased_t2PredictionsMLRModel.log

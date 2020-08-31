@@ -14,7 +14,7 @@ Starting Prediction
 Optimal parameters random_state=1;n_estimators=18;max_features=auto;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/x264/x264_9/PreVal_RandomForestRegressor_H264__.csv
-Error rate: 0.127885372311256
+Error rate: 0.523303525987384
 command: clean-global
 command: script ./learn_divDistBased_t2ForestRegressor.a
 command: log ./out_divDistBased_t2PredictionsForestRegressor.log

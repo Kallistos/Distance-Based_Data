@@ -3,4 +3,9 @@ command: vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/Measured
 command: all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/VP9/measurements.csv
 216000 configurations loaded.
 command: nfp Performance
-command: evaluate-model ./out_random_t2Predictions.log_wrong_result
+command: evaluate-model ./out_random_t2PredictionsMLRModel.log
+Error: 54.7089294009557
+As no path is given, no predictions are written into a file.
+command: clean-global
+command: script ./learn_random_t3.a
+command: log ./out_random_t3PredictionsMLR.log

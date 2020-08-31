@@ -2,4 +2,4 @@ log ./out_divDistBased_t3PredictionsMLR.log
 vm /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/Dune/FeatureModel.xml
 all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/MeasuredPerformanceValues/Dune/measurements.xml
 nfp Performance
-evaluate-model ./out_divDistBased_t3Predictions.log_wrong_result
+evaluate-model ./out_divDistBased_t3PredictionsMLRModel.log

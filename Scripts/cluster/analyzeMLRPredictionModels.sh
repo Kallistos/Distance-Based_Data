@@ -60,7 +60,7 @@ createAFiles () {
           echo "vm ${path}FeatureModel.xml" >> ${file};
           echo "all ${csvFile}" >> ${file};
           echo "nfp Performance" >> ${file};
-          echo "evaluate-model ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))Predictions${LOG_SUFIX}_wrong_result" >> ${file};
+          echo "evaluate-model ${scriptPath}${OUT_PREFIX}${FILE_NAME}_t$((${twCounter}))PredictionsMLRModel${LOG_SUFIX}" >> ${file};
 
         done
 }

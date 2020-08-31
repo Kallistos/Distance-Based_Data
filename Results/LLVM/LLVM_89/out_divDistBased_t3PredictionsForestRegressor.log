@@ -11,8 +11,8 @@ command: define-python-path /scratch/kallistos/Distance-Based_Data/Scripts/clust
 command: learn-python-opt RandomForestRegressor
 Learning: NumberOfConfigurationsLearning:175 NumberOfConfigurationsValidation:175
 Starting Prediction
-Optimal parameters random_state=1;n_estimators=15;max_features=auto;
+Optimal parameters random_state=3;n_estimators=10;max_features=sqrt;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/LLVM/LLVM_89/PreVal_RandomForestRegressor_LLVM_OPT__.csv
-Error rate: 0.0401863114455922
+Error rate: 0.0394696135160217
 command: clean-global

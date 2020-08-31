@@ -14,5 +14,5 @@ Starting Prediction
 Optimal parameters random_state=1;n_estimators=20;max_features=auto;
 Starting Prediction
 Prediction finished, results written in /scratch/kallistos/Distance-Based_Data/Results/BerkeleyDBC/BerkeleyDBC_80/PreVal_RandomForestRegressor_BerkeleyDbC__.csv
-Error rate: 0.0126213915707949
+Error rate: 0.00896048783192987
 command: clean-global

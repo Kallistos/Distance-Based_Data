@@ -6,7 +6,7 @@ command: all /scratch/kallistos/Distance-Based_Data/SupplementaryWebsite/Measure
 Configs with too large deviation: 0
 13485 configurations loaded.
 command: nfp Performance
-command: evaluate-model ./out_divDistBased_t3Predictions.log_wrong_result
-Error: 10.9304966439385
+command: evaluate-model ./out_divDistBased_t3PredictionsMLRModel.log
+Error: 10.6101468070372
 As no path is given, no predictions are written into a file.
 command: clean-global

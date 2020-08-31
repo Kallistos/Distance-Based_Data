@@ -1,6 +1,6 @@
-script ./learn_random_t1MLR.a
+script ./learn_twise_t1.a
 clean-global
-script ./learn_random_t2MLR.a
+script ./learn_twise_t2.a
 clean-global
-script ./learn_random_t3MLR.a
+script ./learn_twise_t3.a
 clean-global
