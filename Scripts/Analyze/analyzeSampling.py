@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 
-case_studies = [# "7z",
+case_studies = ["7z",
                 "BerkeleyDBC",
-                # "Dune",
-                # "Hipacc",
-                # "JavaGC",
-                # "LLVM",
-                # "lrzip",
-                # "Polly",
-                # "VP9",
-                # "x264",
+                "Dune",
+                "Hipacc",
+                "JavaGC",
+                "LLVM",
+                "lrzip",
+                "Polly",
+                "VP9",
+                "x264",
                 ]
 
 all_config_path = "../../SupplementaryWebsite/MeasuredPerformanceValues/"
