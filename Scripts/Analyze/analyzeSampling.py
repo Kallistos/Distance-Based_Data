@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 
-case_studies = ["BerkeleyDBC",
-                # "7z",
-                # "Dune",
-                # "Hipacc",
-                # "JavaGC",
-                # "LLVM",
-                # "Polly",
-                # "VP9",
-                # "lrzip",
-                # "x264",
+case_studies = ["7z",
+                "BerkeleyDBC",
+                "Dune",
+                "Hipacc",
+                "JavaGC",
+                "LLVM",
+                "lrzip",
+                "Polly",
+                "VP9",
+                "x264",
                 ]
 
 all_config_path = "../../SupplementaryWebsite/MeasuredPerformanceValues/"
@@ -19,12 +19,12 @@ start_rand = 1
 end_rand = 100
 
 file_name_prefix = "sampledConfigurations_"
-file_name_strategies = ["grammarBased",
-                        "divDistBased",
-                        "henard",
-                        "random",
+file_name_strategies = ["twise",
                         "solverBased",
-                        "twise"
+                        "henard",
+                        "divDistBased",
+                        "grammarBased",
+                        "random"
                         ]
 file_name_mids = ["_t1", "_t2", "_t3"]
 file_name_suffix = ".csv"
@@ -136,200 +136,162 @@ def get_sampling_indices(case_study, strategy):
                 raise NotImplementedError('there is no 4-wise sampling')
 
 
-def produce_median_indicies(case_study, strategy):
-    import statistics
-    sampling_sets_set = []
-    sampling_sets_set.append(t1_sampling_sets[case_study][strategy])
-    sampling_sets_set.append(t2_sampling_sets[case_study][strategy])
-    sampling_sets_set.append(t3_sampling_sets[case_study][strategy])
-
-    if len(sampling_sets_set[0]) != len(sampling_sets_set[1]) or len(sampling_sets_set[0]) != len(sampling_sets_set[2]) or len(sampling_sets_set[0]) < 1:
-        raise ValueError('not all seeds got sample sets')
-    for sampling_set, t_factor in zip(sampling_sets_set, ['t1', 't2', 't3']):
-        length = len(sampling_set[0])
-        length_val = len(configurations_in_study[case_study])
-        steps = length_val / length
-        print('length:', length, 'length val:', length_val, 'steps:', steps)
-        for j in range(length):
-            samples_idx = []
-            for i in range(0, len(sampling_set)):
-                if j >= len(sampling_set[i]):
-                    raise ValueError("j is outside of the sampleset: " + str(j) + " set length: " + str(len(sampling_set[i])) + "\nstrategy: " + strategy + " t_factor: " + t_factor + " length: " + str(length) + " index I: " + str(i) + "case_study: " + case_study + "\n sampling set: " + str(sampling_set[i]))
-                samples_idx.append(sampling_set[i][j])
-            median_idx = statistics.median(samples_idx)
-            lower = int(float(j) * steps)
-            upper = int(float((j + 1)) * steps)
-            if median_idx in range(lower, upper):
-                median_idx = median_idx
-            elif median_idx < lower:
-                median_idx = lower
-            else:
-                median_idx = upper
-            dict_dataframe[case_study]['x'].extend([int(median_idx)] * len(samples_idx))
-            dict_dataframe[case_study]['z'].extend([int(median_idx)] * len(samples_idx))
-            dict_dataframe[case_study]['y'].extend(samples_idx)
-            dict_dataframe[case_study]['strategy'].extend([strategy] * len(samples_idx))
-            dict_dataframe[case_study]['strategy'].extend([t_factor] * len(samples_idx))
-
-
-def produce_lineplot_values(case_study, strategy):
+def produce_lineplot_values(case_study):
     import pandas as pd
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    sampling_sets_set = []
-    sampling_sets_set.append(t1_sampling_sets[case_study][strategy])
-    sampling_sets_set.append(t2_sampling_sets[case_study][strategy])
-    sampling_sets_set.append(t3_sampling_sets[case_study][strategy])
-
-    if len(sampling_sets_set[0]) != len(sampling_sets_set[1]) or len(sampling_sets_set[0]) != len(sampling_sets_set[2]) or len(sampling_sets_set[0]) < 1:
-        raise ValueError('not all seeds got sample sets')
-    for sampling_set, t_factor in zip(sampling_sets_set, ['t1', 't2', 't3']):
-        length = len(sampling_set[0])
-        length_val = len(configurations_in_study[case_study])
-        steps = length_val / length
-        print('length:', length, 'length val:', length_val, 'steps:', steps)
-        x_values = []
+    sampling_strategies = ["t-wise", "solver-based", "randomized solver-based", "distance-based", "grammar-based", "random"]
+    x_values = []
+    x_values_t2 = []
+    x_values_t3 = []
+    number_all_configs = len(configurations_in_study[case_study])
+    y_values = [0] * number_all_configs
+    y_values_t2 = [0] * number_all_configs
+    y_values_t3 = [0] * number_all_configs
+    for strategy in file_name_strategies:
+        strategy_name = sampling_strategies[file_name_strategies.index(strategy)]
+        x_values = [strategy_name] * number_all_configs
+        x_values_t2 = [strategy_name] * number_all_configs
+        x_values_t3 = [strategy_name] * number_all_configs
+        sampling_set = t1_sampling_sets[case_study][strategy]
+        all_samples = []
         for index_set in sampling_set:
-            for index in index_set:
-                x_values.append(index)
-        y_values = []
-        for i in x_values:
-            y_values.append(x_values.count(i) / 100.0)
+            all_samples = all_samples + index_set
+        for idx in all_samples:
+            y_values[idx] += 1
+        for i in range(0, len(y_values)):
+            y_values[i] = y_values[i] / float(len(all_samples))
+        sampling_set = t2_sampling_sets[case_study][strategy]
+        all_samples = []
+        for index_set in sampling_set:
+            all_samples = all_samples + index_set
+        for idx in all_samples:
+            y_values_t2[idx] += 1
+        for i in range(0, len(y_values_t2)):
+            y_values_t2[i] = y_values_t2[i] / float(len(all_samples))
+        sampling_set = t2_sampling_sets[case_study][strategy]
+        all_samples = []
+        for index_set in sampling_set:
+            all_samples = all_samples + index_set
+        for idx in all_samples:
+            y_values_t3[idx] += 1
+        for i in range(0, len(y_values_t3)):
+            y_values_t3[i] = y_values_t3[i] / float(len(all_samples))
+    output_dir = 'plots/' + case_study
+    mkdir_p(output_dir)
+    df = pd.DataFrame({"x": x_values, "y": y_values})
+    seaborn_vio_plot(df, output_dir + '/violin' + '_' + case_study + '_' + 't1.pdf', case_study)
+    df = pd.DataFrame({"x": x_values_t2, "y": y_values_t2})
+    seaborn_vio_plot(df, output_dir + '/violin' + '_' + case_study + '_' + 't2.pdf', case_study)
+    df = pd.DataFrame({"x": x_values_t3, "y": y_values_t3})
+    seaborn_vio_plot(df, output_dir + '/violin' + '_' + case_study + '_' + 't3.pdf', case_study)
 
-        sns.set(style="whitegrid")
-        plt.figure()
-        pd_dict = {'x': x_values, 'y': y_values}
-        df = pd.DataFrame(data=pd_dict)
-        sns.lineplot(x="x", y="y", data=df)
-        plt.savefig('tmpTest' + strategy + '_' + case_study + t_factor + '.pdf')
-        plt.close()
 
-
-def plot_dist_samples(case_study, strategy):
-    # import pandas as pd
+def seaborn_vio_plot(df, name, case_study):
     import seaborn as sns
-    # import numpy as np
     import matplotlib.pyplot as plt
-    valid_configurations = configurations_in_study[case_study]
+    from matplotlib import rcParams
+    rcParams.update({'figure.autolayout': True})
+    number_all_configs = len(configurations_in_study[case_study])
+    y_line_value = 1.0 / number_all_configs
+    font_size = 12
+    # h, w = 28, 28
     sns.set(style="whitegrid")
-    for i, sample_set in zip(range(1, 101), t1_sampling_sets[case_study][strategy]):
-        expanded_sample_set = []
-        for j in sample_set:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(j - len(valid_configurations))
-            expanded_sample_set.append(j + len(valid_configurations))
-        output_dir = 'plots/' + case_study + '/t1/' + strategy + '/' + strategy + '_' + str(i)
-        mkdir_p(output_dir)
-        plt.figure()
-        sns.distplot(sample_set, hist=False, rug=True, rug_kws={'height': .5}, kde_kws={'cut': 0})
-        plt.xlim(0, len(valid_configurations))
-        plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
-        plt.close()
-    # for i, sample_set in zip(range(1, 101), t2_sampling_sets[case_study][strategy]):
-    #     expanded_sample_set = []
-    #     for j in sample_set:
-    #         expanded_sample_set.append(j)
-    #         expanded_sample_set.append(j - len(valid_configurations))
-    #         expanded_sample_set.append(j + len(valid_configurations))
-    #     output_dir = 'plots/' + case_study + '/t2/' + strategy + '/' + strategy + '_' + str(i)
-    #     mkdir_p(output_dir)
-    #     plt.figure()
-    #     sns.distplot(expanded_sample_set, hist=False, rug=True, rug_kws={'height': .5})
-    #     plt.xlim(0, len(valid_configurations))
-    #     plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
-    #     plt.close()
-    # for i, sample_set in zip(range(1, 101), t3_sampling_sets[case_study][strategy]):
-    #     output_dir = 'plots/' + case_study + '/t3/' + strategy + '/' + strategy + '_' + str(i)
-    #     mkdir_p(output_dir)
-    #     plt.figure()
-    #     sns.distplot(sample_set, hist=False, rug=True, rug_kws={'height': .5})
-    #     plt.xlim(0, len(valid_configurations))
-    #     plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
-    #     plt.close()
+    # plt.figure(figsize=(h, w))
+    plt.figure()
+    sns.violinplot(x="x", y="y", data=df, cut=0)
+    locs, labels = plt.yticks()
+    plt.setp(labels, fontsize=font_size)
+    locs, labels = plt.xticks()
+    plt.setp(labels, rotation=20, fontsize=font_size, ha='right')
+    plt.xlabel("sampling strategy", fontsize=font_size + 2)
+    line = plt.axhline(y=y_line_value, linestyle='--', linewidth=2, color='k', label='uniform baseline')
+    plt.legend([line], ['uniform baseline'], bbox_to_anchor=(0., 1.02, 1., .102), loc='lower right', ncol=2, borderaxespad=0.)
+    plt.ylabel("[%]", fontsize=font_size + 2)
+    # plt.ylim(0.0, 0.0005)
+    plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
+    plt.savefig(name)
+    plt.close()
 
 
-def plot_combined(case_study):
-    # import pandas as pd
-    import seaborn as sns
-    # import numpy as np
-    import matplotlib.pyplot as plt
-    valid_configurations = configurations_in_study[case_study]
-    sns.set(style="whitegrid")
-    for i, sample_setGB, sample_setDDB, sample_setH, sample_setR, sample_setS, sample_setT in zip(range(1, 101), t1_sampling_sets[case_study]["grammarBased"], t1_sampling_sets[case_study]["divDistBased"], t1_sampling_sets[case_study]['henard'], t1_sampling_sets[case_study]['random'], t1_sampling_sets[case_study]['solverBased'], t1_sampling_sets[case_study]['twise']):
-        output_dir = 'plots/' + case_study + '/t1/' + '/Seed' + '_' + str(i)
-        mkdir_p(output_dir)
-        plt.figure()
-        expanded_sample_set = []
-        for j in sample_setGB:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(-j)
-            expanded_sample_set.append(-j + 2 * len(valid_configurations))
-        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="grammar")
-        expanded_sample_set = []
-        for j in sample_setDDB:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(-j)
-            expanded_sample_set.append(-j + 2 * len(valid_configurations))
-        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="divDist")
-        expanded_sample_set = []
-        for j in sample_setH:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(-j)
-            expanded_sample_set.append(-j + 2 * len(valid_configurations))
-        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="henard")
-        expanded_sample_set = []
-        for j in sample_setR:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(-j)
-            expanded_sample_set.append(-j + 2 * len(valid_configurations))
-        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="random")
-        expanded_sample_set = []
-        for j in sample_setT:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(-j)
-            expanded_sample_set.append(-j + 2 * len(valid_configurations))
-        sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="twise")
-        expanded_sample_set = []
-        for j in sample_setS:
-            expanded_sample_set.append(j)
-            expanded_sample_set.append(-j)
-            expanded_sample_set.append(-j + 2 * len(valid_configurations))
-        g = sns.distplot(expanded_sample_set, hist=False, rug=False, rug_kws={'height': .5}, kde_kws={'cut': 0}, label="solver")
-        g.legend(frameon=False, loc='upper right', ncol=2)
-        plt.xlim(0, len(valid_configurations))
-        # ytikcs
-        locs, labels = plt.yticks()
-        plt.yticks(locs, map(lambda x: "%.4f" % x, locs * 100))
-        plt.ylabel("[%]")
-        plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
-        plt.close()
-
-
-def plot_dist_samples_combined():
-    # import pandas as pd
-    import seaborn as sns
-    # import numpy as np
-    import matplotlib.pyplot as plt
+def generate_statistical_tests():
+    from scipy.stats import uniform
+    from skgof import ks_test, cvm_test
+    import pandas as pd
+    KS_data = {}
+    KS_data['case_study'] = []
+    CVM_data = {}
+    CVM_data['case_study'] = []
+    KS_VS_CVM_data = {}
+    KS_VS_CVM_data['case_study'] = []
+    for strategy in file_name_strategies:
+        KS_data[strategy + 't1'] = []
+        KS_data[strategy + 't2'] = []
+        KS_data[strategy + 't3'] = []
+        CVM_data[strategy + 't1'] = []
+        CVM_data[strategy + 't2'] = []
+        CVM_data[strategy + 't3'] = []
+        KS_VS_CVM_data[strategy + 't1'] = []
+        KS_VS_CVM_data[strategy + 't2'] = []
+        KS_VS_CVM_data[strategy + 't3'] = []
     for case_study in case_studies:
-        valid_configurations = configurations_in_study[case_study]
-        sns.set(style="whitegrid")
-        for sample_sets in t1_sampling_sets[case_study]:
-            for i in range(1, 11):
-                plt.figure()
-                output_dir = 'plots/' + case_study + '/t1/' + '/combined' + '_' + str(i)
-                mkdir_p(output_dir)
-                for strategy in file_name_strategies:
-                    print(sample_sets)
-                    sample_set = sample_sets[strategy]
-                    expanded_sample_set = []
-                    for j in sample_set:
-                        expanded_sample_set.append(j)
-                        expanded_sample_set.append(j - len(valid_configurations))
-                        expanded_sample_set.append(j + len(valid_configurations))
-                    sns.distplot(sample_set, hist=False, rug=True, rug_kws={'height': .5}, kde_kws={'cut': 0})
-                plt.xlim(0, len(valid_configurations))
-                plt.savefig(output_dir + '/dist.pdf', format='pdf', bbox_inches='tight')
-                plt.close()
+        KS_data['case_study'].append(case_study)
+        CVM_data['case_study'].append(case_study)
+        KS_VS_CVM_data['case_study'].append(case_study)
+        uniform_arr = uniform(0, len(configurations_in_study[case_study]))
+        for strategy in file_name_strategies:
+            sampling_set = t1_sampling_sets[case_study][strategy]
+            t1_KS_positive = 0
+            t1_CVM_positive = 0
+            t1_KS_VS_CVM_negative = 0
+            for index_set in sampling_set:
+                if ks_test((index_set), uniform_arr).pvalue >= .05:
+                    t1_KS_positive += 1
+                    if cvm_test((index_set), uniform_arr).pvalue < .05:
+                        t1_KS_VS_CVM_negative += 1
+                elif cvm_test((index_set), uniform_arr).pvalue >= .05:
+                    t1_KS_VS_CVM_negative += 1
+                if cvm_test((index_set), uniform_arr).pvalue >= .05:
+                    t1_CVM_positive += 1
+            sampling_set = t2_sampling_sets[case_study][strategy]
+            t2_KS_positive = 0
+            t2_CVM_positive = 0
+            t2_KS_VS_CVM_negative = 0
+            for index_set in sampling_set:
+                if ks_test((index_set), uniform_arr).pvalue >= .05:
+                    t2_KS_positive += 1
+                    if cvm_test((index_set), uniform_arr).pvalue < .05:
+                        t2_KS_VS_CVM_negative += 1
+                elif cvm_test((index_set), uniform_arr).pvalue >= .05:
+                    t2_KS_VS_CVM_negative += 1
+                if cvm_test((index_set), uniform_arr).pvalue >= .05:
+                    t2_CVM_positive += 1
+            sampling_set = t3_sampling_sets[case_study][strategy]
+            t3_KS_positive = 0
+            t3_CVM_positive = 0
+            t3_KS_VS_CVM_negative = 0
+            for index_set in sampling_set:
+                if ks_test((index_set), uniform_arr).pvalue >= .05:
+                    t3_KS_positive += 1
+                    if cvm_test((index_set), uniform_arr).pvalue < .05:
+                        t3_KS_VS_CVM_negative += 1
+                elif cvm_test((index_set), uniform_arr).pvalue >= .05:
+                    t3_KS_VS_CVM_negative += 1
+                if cvm_test((index_set), uniform_arr).pvalue >= .05:
+                    t3_CVM_positive += 1
+            KS_data[strategy + 't1'].append(t1_KS_positive)
+            KS_data[strategy + 't2'].append(t2_KS_positive)
+            KS_data[strategy + 't3'].append(t3_KS_positive)
+            CVM_data[strategy + 't1'].append(t1_CVM_positive)
+            CVM_data[strategy + 't2'].append(t2_CVM_positive)
+            CVM_data[strategy + 't3'].append(t3_CVM_positive)
+            KS_VS_CVM_data[strategy + 't1'].append(t1_KS_VS_CVM_negative)
+            KS_VS_CVM_data[strategy + 't2'].append(t2_KS_VS_CVM_negative)
+            KS_VS_CVM_data[strategy + 't3'].append(t3_KS_VS_CVM_negative)
+    KS_df = pd.DataFrame(data=KS_data)
+    CVM_df = pd.DataFrame(data=CVM_data)
+    KS_VS_CVM_df = pd.DataFrame(data=KS_VS_CVM_data)
+    KS_df.to_csv('KS_results.csv', index=False)
+    CVM_df.to_csv('CVM_results.csv', index=False)
+    KS_VS_CVM_df.to_csv('KS_VS_CVM_results', index=False)
 
 
 def mkdir_p(mypath):
@@ -345,26 +307,6 @@ def mkdir_p(mypath):
             pass
         else:
             raise
-
-
-def seaborn_plot():
-    import pandas as pd
-    import seaborn as sns
-    import numpy as np
-    import matplotlib.pyplot as plt
-
-    sns.set(style="whitegrid")
-    for study in case_studies:
-        xmax = int(dict_dataframe[study]['x'][-1] * 1.01)
-        x = np.array(range(-10, xmax, 1))
-        df = pd.DataFrame(data=dict_dataframe[study])
-        df.to_csv('dataframe' + study + '.csv')
-        chart = sns.distplot(df['y'], hue='strategy', col='t_factor', kind='line', markers=True, height=15, aspect=1)
-        for ax in chart.axes.flat:
-            # ax.set_xticklabels(ax.get_yticklabels(), rotation=30)
-            ax.xaxis.grid(True)
-            ax.plot(x, x, '-r', linewidth=2)
-        plt.savefig('tmpTest' + study + '.pdf')
 
 
 def start():
@@ -393,11 +335,8 @@ def start():
             t2_sampling_sets[study][strategy] = []
             t3_sampling_sets[study][strategy] = []
             get_sampling_indices(study, strategy)
-            # plot_dist_samples(study, strategy)
-            produce_lineplot_values(study, strategy)
-            # produce_median_indicies(study, strategy)
-        # plot_combined(study)
-    # seaborn_plot()
+        produce_lineplot_values(study)
+    generate_statistical_tests()
 
 
 if __name__ == "__main__":
